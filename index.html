@@ -68,6 +68,14 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-
 .admin-btn:hover{border-color:var(--amber);color:var(--amber)}
 .admin-btn.on{background:rgba(245,158,11,.1);border-color:var(--amber);color:var(--amber)}
 
+/* ── BREADCRUMB ── */
+.breadcrumb-bar{background:var(--s2);border-bottom:1px solid var(--border);padding:0 1.25rem;height:36px;display:flex;align-items:center;position:sticky;top:54px;z-index:99}
+.bc-item{font-size:12px;font-weight:500;color:var(--muted)}
+.bc-link{cursor:pointer;color:var(--green)}
+.bc-link:hover{text-decoration:underline}
+.bc-current{color:var(--text);font-weight:600}
+.bc-sep{margin:0 6px;color:var(--dim);font-size:13px}
+
 /* ── PAGES ── */
 .page{display:none;max-width:1100px;margin:0 auto;padding:1.25rem;position:relative;z-index:1}
 .page.on{display:block}
@@ -288,7 +296,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-
 
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo">🏓 DP</div>
+    <div class="nav-logo" onclick="nav('home')" style="cursor:pointer;display:flex;align-items:center;gap:8px">
+      <img src="data:image/png;base64,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" alt="DreamPlay Logo" style="height:32px;width:32px;object-fit:contain;border-radius:4px">
+      <span>DreamPlay</span>
+    </div>
     <div class="nav-tabs">
       <button class="ntab on" onclick="nav('home')">Home</button>
       <button class="ntab" onclick="nav('fixtures')">Fixtures</button>
@@ -300,6 +311,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-
     </div>
   </div>
 </nav>
+
+<div id="breadcrumb" class="breadcrumb-bar" style="display:none"></div>
 
 <!-- HOME -->
 <div id="page-home" class="page on">
@@ -536,7 +549,7 @@ setTimeout(() => {
 // ════════════════════════════════════════
 // NAV
 // ════════════════════════════════════════
-function nav(id) {
+function nav(id, pushState = true) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
   document.querySelectorAll('.ntab').forEach(t => t.classList.remove('on'));
   document.getElementById('page-' + id).classList.add('on');
@@ -545,7 +558,44 @@ function nav(id) {
   if (id === 'fixtures') renderFixtures();
   if (id === 'bracket') renderBracket();
   if (id === 'points') renderPoints();
+  // Update URL hash
+  if (pushState) {
+    const hash = id === 'home' ? '' : id;
+    history.pushState({page: id}, '', hash ? '#' + hash : window.location.pathname.replace(/#.*$/, ''));
+  }
+  // Update breadcrumb
+  renderBreadcrumb(id);
 }
+
+function renderBreadcrumb(id) {
+  const labels = {home:'Home',fixtures:'Fixtures',bracket:'Bracket',points:'Points Table'};
+  const crumb = document.getElementById('breadcrumb');
+  if (!crumb) return;
+  if (id === 'home') {
+    crumb.style.display = 'none';
+    return;
+  }
+  crumb.style.display = 'flex';
+  crumb.innerHTML = `<span class="bc-item bc-link" onclick="nav('home')">Home</span><span class="bc-sep">›</span><span class="bc-item bc-current">${labels[id]}</span>`;
+}
+
+// Handle browser back/forward
+window.addEventListener('popstate', (e) => {
+  const id = e.state?.page || routeFromHash();
+  nav(id, false);
+});
+
+function routeFromHash() {
+  const hash = window.location.hash.replace('#', '').trim();
+  const valid = ['fixtures', 'bracket', 'points'];
+  return valid.includes(hash) ? hash : 'home';
+}
+
+// On load, route to correct page from hash
+window.addEventListener('DOMContentLoaded', () => {
+  const id = routeFromHash();
+  nav(id, false);
+});
 
 function toggleAdmin() {
   isAdmin = !isAdmin;
