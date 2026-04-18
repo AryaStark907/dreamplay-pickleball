@@ -303,8 +303,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-
     <div class="nav-tabs">
       <button class="ntab on" onclick="nav('home')">Home</button>
       <button class="ntab" onclick="nav('fixtures')">Fixtures</button>
-      <button class="ntab" onclick="nav('bracket')">Bracket</button>
+      <button class="ntab" onclick="nav('bracket')">Semis &amp; Finals</button>
       <button class="ntab" onclick="nav('points')">Points Table</button>
+      <button class="ntab" onclick="nav('rules')">📋 Rules</button>
     </div>
     <div class="nav-admin">
       <button class="admin-btn" id="admin-toggle" onclick="toggleAdmin()">⚙ Admin</button>
@@ -321,7 +322,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-
     <h1>DREAMPLAY<br>PICKLEBALL</h1>
     <div class="hero-sub">7th Floor Pickle Court · 21–25 April 2026</div>
     <div class="hero-stats">
-      <div><div class="hstat-v">32</div><div class="hstat-l">Teams</div></div>
+      <div><div class="hstat-v">39</div><div class="hstat-l">Teams</div></div>
       <div><div class="hstat-v">2</div><div class="hstat-l">Categories</div></div>
       <div><div class="hstat-v" id="home-scored">0</div><div class="hstat-l">Scored</div></div>
       <div><div class="hstat-v">5</div><div class="hstat-l">Days</div></div>
@@ -334,19 +335,24 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-
       </div>
       <div class="hcard" onclick="nav('bracket')" style="border-color:#3b2b00">
         <div class="hcard-icon">🏆</div>
-        <div class="hcard-title" style="color:#fcd34d">Bracket</div>
-        <div class="hcard-desc">Visual tournament bracket showing the path from groups to the final.</div>
+        <div class="hcard-title" style="color:#fcd34d">Semis &amp; Finals</div>
+        <div class="hcard-desc">QF, Semi-final and Final bracket — populates as group stages complete.</div>
       </div>
       <div class="hcard" onclick="nav('points')" style="border-color:#1e1b4b">
         <div class="hcard-icon">📊</div>
         <div class="hcard-title" style="color:#c4b5fd">Points Table</div>
-        <div class="hcard-desc">Live group standings. Top 2 per group advance to Quarter Finals.</div>
+        <div class="hcard-desc">Live group standings. Group winners + 3 wildcards advance to Quarter Finals.</div>
+      </div>
+      <div class="hcard" onclick="nav('rules')" style="border-color:#1e3a1e">
+        <div class="hcard-icon">📋</div>
+        <div class="hcard-title" style="color:#86efac">Rules</div>
+        <div class="hcard-desc">Tournament rules, scoring format, and advancement criteria.</div>
       </div>
     </div>
     <div class="info-strip">
       <div class="info-cell"><div class="info-label">Mon–Thu</div><div class="info-val">Group Stage · 12:30–8:30 PM</div></div>
       <div class="info-cell"><div class="info-label">Friday 🏆</div><div class="info-val">QF → SF → Final · from 11:30 AM</div></div>
-      <div class="info-cell"><div class="info-label">Format</div><div class="info-val">3 Sets: 11 · 7 · 7 pts</div></div>
+      <div class="info-cell"><div class="info-label">Format</div><div class="info-val">1 Game to 15 · Win by 2 · Cap 17</div></div>
       <div class="info-cell"><div class="info-label">Venue</div><div class="info-val">7th Floor Pickle Court</div></div>
     </div>
   </div>
@@ -368,9 +374,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-
   <div id="fix-list"></div>
 </div>
 
-<!-- BRACKET -->
+<!-- SEMIS & FINALS -->
 <div id="page-bracket" class="page">
-  <div class="page-hdr"><div class="page-title">BRACKET</div></div>
+  <div class="page-hdr"><div class="page-title">SEMIS &amp; FINALS</div></div>
   <div class="filter-row">
     <button class="fchip on-beg" id="br-beg" onclick="setBrCat('Beginner')">🔵 Beginner</button>
     <button class="fchip" id="br-int" onclick="setBrCat('Inter+Adv')">🟣 Inter+Adv</button>
@@ -386,6 +392,73 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-
     <button class="pt-tab" id="pt-int" onclick="setPtCat('Inter+Adv',this)">🟣 Inter+Adv</button>
   </div>
   <div id="pt-content"></div>
+</div>
+
+<!-- RULES -->
+<div id="page-rules" class="page">
+  <div class="page-hdr"><div class="page-title">📋 RULES</div></div>
+  <div style="display:grid;gap:1rem">
+
+    <div class="pt-group-card">
+      <div class="pt-group-hdr"><div class="pt-group-name"><span class="grp-badge gb-beg" style="font-size:12px">🏓 MATCH FORMAT</span></div></div>
+      <div style="padding:1rem;font-size:13px;line-height:1.8;color:var(--text)">
+        <p><strong>One Game to 15 — Win by 2</strong></p>
+        <p style="color:var(--muted);margin-top:.4rem">Teams play a single extended game. The first team to reach <strong>15 points</strong> wins, but must lead by at least <strong>2 points</strong>.</p>
+        <ul style="margin-top:.6rem;padding-left:1.2rem;color:var(--muted)">
+          <li>Typical game duration: <strong>15–22 minutes</strong></li>
+          <li>If tied at 16–16, first to <strong>17 wins</strong> (even by 1 point) — hard cap</li>
+          <li>Scores above 15 are only valid if the winning team leads by 2, OR the score reaches 17</li>
+          <li>Example: <strong>15–13</strong> ✓ · <strong>15–14</strong> ✗ (not win by 2) · <strong>17–16</strong> ✓ (cap)</li>
+        </ul>
+        <div style="margin-top:.75rem;padding:.65rem .9rem;background:var(--green2);border:1px solid rgba(0,165,114,.3);border-radius:8px;font-size:12px;color:var(--green)">
+          ⚡ <strong>Score Entry Rule:</strong> If you enter 15 as a team's score, the opponent's score must be 13 or lower. If the score is 17, the opponent's score must be 16 or lower.
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-group-card">
+      <div class="pt-group-hdr"><div class="pt-group-name"><span class="grp-badge gb-int" style="font-size:12px">📅 SCHEDULE</span></div></div>
+      <div style="padding:1rem;font-size:13px;line-height:1.8;color:var(--text)">
+        <p><strong>Group Stage:</strong> Monday–Thursday · 12:30 PM – 8:30 PM</p>
+        <ul style="margin-top:.4rem;padding-left:1.2rem;color:var(--muted)">
+          <li>Each match slot: <strong>30 minutes</strong> (match time)</li>
+          <li>Switch/buffer time: <strong>10 minutes</strong> between matches</li>
+          <li>Total slot per match: <strong>40 minutes</strong></li>
+        </ul>
+        <p style="margin-top:.6rem"><strong>Finals Day (Friday):</strong> Quarter Finals → Semi Finals → Final starting 11:30 AM</p>
+      </div>
+    </div>
+
+    <div class="pt-group-card">
+      <div class="pt-group-hdr"><div class="pt-group-name"><span class="grp-badge gb-ko" style="font-size:12px">🏆 ADVANCEMENT TO QUARTER FINALS</span></div></div>
+      <div style="padding:1rem;font-size:13px;line-height:1.8;color:var(--text)">
+        <p><strong>8 teams advance to QF from each category (Beginner & Inter+Adv):</strong></p>
+        <ul style="margin-top:.4rem;padding-left:1.2rem;color:var(--muted)">
+          <li><strong>5 guaranteed spots</strong> — Top team (1st place) from each of the 5 groups advances automatically</li>
+          <li><strong>3 wildcard spots</strong> — The next 3 best teams across all groups (2nd place finishers and beyond) advance based on standings</li>
+        </ul>
+        <p style="margin-top:.6rem;color:var(--muted)">Wildcard selection criteria (in order): Points → Wins → Set Difference → Points Difference. Final wildcard decisions may be made by the Dreamplay team.</p>
+        <div style="margin-top:.75rem;padding:.65rem .9rem;background:rgba(212,138,0,.08);border:1px solid rgba(212,138,0,.25);border-radius:8px;font-size:12px;color:#92600a">
+          🎯 <strong>Points System:</strong> Win = 3 pts · Draw = 1 pt · Loss = 0 pts
+        </div>
+      </div>
+    </div>
+
+
+    <div class="pt-group-card">
+      <div class="pt-group-hdr"><div class="pt-group-name"><span class="grp-badge gb-int" style="font-size:12px">📝 SCORE SUBMISSION</span></div></div>
+      <div style="padding:1rem;font-size:13px;line-height:1.8;color:var(--text)">
+        <ul style="padding-left:1.2rem;color:var(--muted)">
+          <li>Either team can submit the score after a match</li>
+          <li>Enter your name when submitting — scores are tracked with submitter info</li>
+          <li>Scores can be corrected once (max 2 submissions per match)</li>
+          <li>After 2 submissions, scores are locked — contact Admin for any further changes</li>
+          <li>Submitting all zeros will <strong>reset</strong> a match score</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <!-- SCORE MODAL -->
@@ -406,17 +479,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-
     </div>
 
     <div class="set-row">
-      <div class="set-lbl">Set 1 <span>max 11</span></div>
-      <div class="set-inp"><input type="number" id="s1a" min="0" max="11" placeholder="0"><span class="set-dash">–</span><input type="number" id="s1b" min="0" max="11" placeholder="0"></div>
+      <div class="set-lbl">Game Score <span>first to 15, win by 2 · cap 17</span></div>
+      <div class="set-inp"><input type="number" id="s1a" min="0" max="17" placeholder="0" oninput="validateScoreInline()"><span class="set-dash">–</span><input type="number" id="s1b" min="0" max="17" placeholder="0" oninput="validateScoreInline()"></div>
     </div>
-    <div class="set-row">
-      <div class="set-lbl">Set 2 <span>max 7</span></div>
-      <div class="set-inp"><input type="number" id="s2a" min="0" max="7" placeholder="0"><span class="set-dash">–</span><input type="number" id="s2b" min="0" max="7" placeholder="0"></div>
-    </div>
-    <div class="set-row">
-      <div class="set-lbl">Set 3 <span>max 7</span></div>
-      <div class="set-inp"><input type="number" id="s3a" min="0" max="7" placeholder="0"><span class="set-dash">–</span><input type="number" id="s3b" min="0" max="7" placeholder="0"></div>
-    </div>
+    <div id="score-error" style="display:none;margin-bottom:.5rem;padding:.55rem .85rem;background:rgba(217,48,37,.07);border:1px solid rgba(217,48,37,.3);border-radius:8px;font-size:12px;color:var(--red);font-weight:500;line-height:1.5"></div>
     <button class="modal-submit" id="modal-submit-btn" onclick="submitScore()">SUBMIT SCORE</button>
     <div class="saving-txt" id="saving-txt">Saving to Firebase…</div>
     <div id="score-history-container" style="display:none"></div>
@@ -439,63 +505,101 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-
 // DATA
 // ════════════════════════════════════════
 const MATCHES = [
+  // ── MONDAY (Mon 21 Apr) ──
+  // Beginner Group A
   {code:"GA1",cat:"Beginner",group:"A",day:"Mon",time:"12:30–01:00 PM",ta:"Pragati Ranjan & Anshuman Singh",tb:"Jay Gosalia & sohith",stage:"Group Stage"},
   {code:"GA2",cat:"Beginner",group:"A",day:"Mon",time:"01:10–01:40 PM",ta:"Rohan Pawar & Anuj Dhanger",tb:"Rishabh Surana & Nishant Parmar",stage:"Group Stage"},
+  // Beginner Group B
   {code:"GB1",cat:"Beginner",group:"B",day:"Mon",time:"01:50–02:20 PM",ta:"Abhishek Kumar & Jimit Shah",tb:"Devendra Patidar & Rhea Adhikari",stage:"Group Stage"},
   {code:"GB2",cat:"Beginner",group:"B",day:"Mon",time:"02:30–03:00 PM",ta:"Osim Abes & Samarth Ladia",tb:"Aditya Singh Jadon & Salim Bhalerao",stage:"Group Stage"},
+  // Beginner Group C
   {code:"GC1",cat:"Beginner",group:"C",day:"Mon",time:"03:10–03:40 PM",ta:"Indhranath Sri Ram & Shivam Tiwari",tb:"Fenil Kanjani & Sumit Kumar",stage:"Group Stage"},
   {code:"GC2",cat:"Beginner",group:"C",day:"Mon",time:"03:50–04:20 PM",ta:"Parita Kapadia & Bipin Podar",tb:"Nishieth Babu & Sumit Pandey",stage:"Group Stage"},
+  // Inter+Adv Group D (Siddharth Suchak NOT on Tuesday – scheduled Mon/Wed/Thu only)
   {code:"GD3i",cat:"Inter+Adv",group:"D",day:"Mon",time:"04:30–05:00 PM",ta:"Chandni Padikkal & Siddharth Modha",tb:"Siddharth Suchak & Dharmveer Baloda",stage:"Group Stage"},
   {code:"GD5i",cat:"Inter+Adv",group:"D",day:"Mon",time:"05:10–05:40 PM",ta:"Aditya Choudhary & Priyanshu Vaya",tb:"Siddharth Suchak & Dharmveer Baloda",stage:"Group Stage"},
   {code:"GD6i",cat:"Inter+Adv",group:"D",day:"Mon",time:"05:50–06:20 PM",ta:"Rahul Prasad & Indresh Pal",tb:"Siddharth Suchak & Dharmveer Baloda",stage:"Group Stage"},
   {code:"GD1i",cat:"Inter+Adv",group:"D",day:"Mon",time:"06:30–07:00 PM",ta:"Chandni Padikkal & Siddharth Modha",tb:"Aditya Choudhary & Priyanshu Vaya",stage:"Group Stage"},
   {code:"GD2i",cat:"Inter+Adv",group:"D",day:"Mon",time:"07:10–07:40 PM",ta:"Chandni Padikkal & Siddharth Modha",tb:"Rahul Prasad & Indresh Pal",stage:"Group Stage"},
   {code:"GD4i",cat:"Inter+Adv",group:"D",day:"Mon",time:"07:50–08:20 PM",ta:"Aditya Choudhary & Priyanshu Vaya",tb:"Rahul Prasad & Indresh Pal",stage:"Group Stage"},
+  // Beginner Group E match 1
+  {code:"GE1",cat:"Beginner",group:"E",day:"Mon",time:"08:30–09:00 PM",ta:"Akshansh Thakur & Sanchit Gupta",tb:"Tarun Kumar & Shashank Dhurwe",stage:"Group Stage"},
+
+  // ── TUESDAY (Tue 22 Apr) ──
+  // Beginner Group A
   {code:"GA3",cat:"Beginner",group:"A",day:"Tue",time:"12:30–01:00 PM",ta:"Pragati Ranjan & Anshuman Singh",tb:"Rohan Pawar & Anuj Dhanger",stage:"Group Stage"},
   {code:"GA4",cat:"Beginner",group:"A",day:"Tue",time:"01:10–01:40 PM",ta:"Pragati Ranjan & Anshuman Singh",tb:"Rishabh Surana & Nishant Parmar",stage:"Group Stage"},
   {code:"GA5",cat:"Beginner",group:"A",day:"Tue",time:"01:50–02:20 PM",ta:"Jay Gosalia & sohith",tb:"Rohan Pawar & Anuj Dhanger",stage:"Group Stage"},
   {code:"GA6",cat:"Beginner",group:"A",day:"Tue",time:"02:30–03:00 PM",ta:"Jay Gosalia & sohith",tb:"Rishabh Surana & Nishant Parmar",stage:"Group Stage"},
+  // Beginner Group B
   {code:"GB3",cat:"Beginner",group:"B",day:"Tue",time:"03:10–03:40 PM",ta:"Abhishek Kumar & Jimit Shah",tb:"Osim Abes & Samarth Ladia",stage:"Group Stage"},
   {code:"GB4",cat:"Beginner",group:"B",day:"Tue",time:"03:50–04:20 PM",ta:"Abhishek Kumar & Jimit Shah",tb:"Aditya Singh Jadon & Salim Bhalerao",stage:"Group Stage"},
   {code:"GB5",cat:"Beginner",group:"B",day:"Tue",time:"04:30–05:00 PM",ta:"Devendra Patidar & Rhea Adhikari",tb:"Osim Abes & Samarth Ladia",stage:"Group Stage"},
   {code:"GB6",cat:"Beginner",group:"B",day:"Tue",time:"05:10–05:40 PM",ta:"Devendra Patidar & Rhea Adhikari",tb:"Aditya Singh Jadon & Salim Bhalerao",stage:"Group Stage"},
+  // Beginner Group C
   {code:"GC3",cat:"Beginner",group:"C",day:"Tue",time:"05:50–06:20 PM",ta:"Indhranath Sri Ram & Shivam Tiwari",tb:"Parita Kapadia & Bipin Podar",stage:"Group Stage"},
   {code:"GC4",cat:"Beginner",group:"C",day:"Tue",time:"06:30–07:00 PM",ta:"Indhranath Sri Ram & Shivam Tiwari",tb:"Nishieth Babu & Sumit Pandey",stage:"Group Stage"},
+  // Beginner Group E matches 2 & 3
+  {code:"GE2",cat:"Beginner",group:"E",day:"Tue",time:"07:10–07:40 PM",ta:"Akshansh Thakur & Sanchit Gupta",tb:"Niraj Kumar & Aditya H K",stage:"Group Stage"},
+  // Inter+Adv Group A (after 5:30 PM constraint for Sesha – Sesha not in these teams; Hitesh NOT Mon ✓ Tue is fine)
   {code:"IA1",cat:"Inter+Adv",group:"A",day:"Tue",time:"07:50–08:20 PM",ta:"Nihar Vira & Arif",tb:"Jinay Parekh & Gaurang Jadav",stage:"Group Stage"},
+  // Inter+Adv Group E match 1
+  {code:"IE1",cat:"Inter+Adv",group:"E",day:"Tue",time:"08:30–09:00 PM",ta:"Pranjal Sonkar & Ashish Agarwal",tb:"Parth Kapoor & Bhrigu Raj Das",stage:"Group Stage"},
+
+  // ── WEDNESDAY (Wed 23 Apr) ──
+  // Inter+Adv Group A (Hitesh NOT Mon – Wed is fine ✓)
   {code:"IA3",cat:"Inter+Adv",group:"A",day:"Wed",time:"12:30–01:00 PM",ta:"Nihar Vira & Arif",tb:"Akash Sanan & Keerthi Ganesh",stage:"Group Stage"},
   {code:"IA5",cat:"Inter+Adv",group:"A",day:"Wed",time:"01:10–01:40 PM",ta:"Jinay Parekh & Gaurang Jadav",tb:"Akash Sanan & Keerthi Ganesh",stage:"Group Stage"},
   {code:"IA6",cat:"Inter+Adv",group:"A",day:"Wed",time:"01:50–02:20 PM",ta:"Hitesh Kapoor & Anupam Agrawal",tb:"Akash Sanan & Keerthi Ganesh",stage:"Group Stage"},
+  // Inter+Adv Group B
   {code:"IB3",cat:"Inter+Adv",group:"B",day:"Wed",time:"02:30–03:00 PM",ta:"Saieesh Patil & Shreya Shobhane",tb:"Pankaj Pandey & Koushik Akula",stage:"Group Stage"},
   {code:"IB5",cat:"Inter+Adv",group:"B",day:"Wed",time:"03:10–03:40 PM",ta:"Abhinn Kothari & Dheeraj",tb:"Pankaj Pandey & Koushik Akula",stage:"Group Stage"},
   {code:"IB6",cat:"Inter+Adv",group:"B",day:"Wed",time:"03:50–04:20 PM",ta:"Bhavit Sheth & Vinayak Gupta",tb:"Pankaj Pandey & Koushik Akula",stage:"Group Stage"},
+  // Inter+Adv Group A remaining (Hitesh Kapoor matches)
   {code:"IA2",cat:"Inter+Adv",group:"A",day:"Wed",time:"04:30–05:00 PM",ta:"Nihar Vira & Arif",tb:"Hitesh Kapoor & Anupam Agrawal",stage:"Group Stage"},
   {code:"IA4",cat:"Inter+Adv",group:"A",day:"Wed",time:"05:10–05:40 PM",ta:"Jinay Parekh & Gaurang Jadav",tb:"Hitesh Kapoor & Anupam Agrawal",stage:"Group Stage"},
+  // Beginner Group C
   {code:"GC5",cat:"Beginner",group:"C",day:"Wed",time:"05:50–06:20 PM",ta:"Fenil Kanjani & Sumit Kumar",tb:"Parita Kapadia & Bipin Podar",stage:"Group Stage"},
   {code:"GC6",cat:"Beginner",group:"C",day:"Wed",time:"06:30–07:00 PM",ta:"Fenil Kanjani & Sumit Kumar",tb:"Nishieth Babu & Sumit Pandey",stage:"Group Stage"},
+  // Inter+Adv Group C
   {code:"IC1",cat:"Inter+Adv",group:"C",day:"Wed",time:"07:10–07:40 PM",ta:"Swapnesh Kumar & Sarthak Mittal",tb:"Sahil Parsekar & Yash Shah",stage:"Group Stage"},
   {code:"IC2",cat:"Inter+Adv",group:"C",day:"Wed",time:"07:50–08:20 PM",ta:"Swapnesh Kumar & Sarthak Mittal",tb:"Sayan Chakraborty & Madhur Mittal",stage:"Group Stage"},
+  // Beginner Group E match 4
+  {code:"GE4",cat:"Beginner",group:"E",day:"Wed",time:"08:30–09:00 PM",ta:"Tarun Kumar & Shashank Dhurwe",tb:"Niraj Kumar & Aditya H K",stage:"Group Stage"},
+
+  // ── THURSDAY (Thu 24 Apr) ──
+  // Inter+Adv Group C
   {code:"IC3",cat:"Inter+Adv",group:"C",day:"Thu",time:"12:30–01:00 PM",ta:"Swapnesh Kumar & Sarthak Mittal",tb:"Manjeet Yadav & Sachin Nayak",stage:"Group Stage"},
   {code:"IC4",cat:"Inter+Adv",group:"C",day:"Thu",time:"01:10–01:40 PM",ta:"Sahil Parsekar & Yash Shah",tb:"Sayan Chakraborty & Madhur Mittal",stage:"Group Stage"},
   {code:"IC5",cat:"Inter+Adv",group:"C",day:"Thu",time:"01:50–02:20 PM",ta:"Sahil Parsekar & Yash Shah",tb:"Manjeet Yadav & Sachin Nayak",stage:"Group Stage"},
   {code:"IC6",cat:"Inter+Adv",group:"C",day:"Thu",time:"02:30–03:00 PM",ta:"Sayan Chakraborty & Madhur Mittal",tb:"Manjeet Yadav & Sachin Nayak",stage:"Group Stage"},
+  // Inter+Adv Group B
   {code:"IB1",cat:"Inter+Adv",group:"B",day:"Thu",time:"03:10–03:40 PM",ta:"Saieesh Patil & Shreya Shobhane",tb:"Abhinn Kothari & Dheeraj",stage:"Group Stage"},
   {code:"IB2",cat:"Inter+Adv",group:"B",day:"Thu",time:"03:50–04:20 PM",ta:"Saieesh Patil & Shreya Shobhane",tb:"Bhavit Sheth & Vinayak Gupta",stage:"Group Stage"},
   {code:"IB4",cat:"Inter+Adv",group:"B",day:"Thu",time:"04:30–05:00 PM",ta:"Abhinn Kothari & Dheeraj",tb:"Bhavit Sheth & Vinayak Gupta",stage:"Group Stage"},
+  // Beginner Group D
   {code:"GD1b",cat:"Beginner",group:"D",day:"Thu",time:"05:10–05:40 PM",ta:"Akshay Sharma & Jayant Jain",tb:"Aditya Narisetty & Animesh Sahoo",stage:"Group Stage"},
   {code:"GD2b",cat:"Beginner",group:"D",day:"Thu",time:"05:50–06:20 PM",ta:"Akshay Sharma & Jayant Jain",tb:"Bhanvi Kumar & Harshank Karia",stage:"Group Stage"},
   {code:"GD3b",cat:"Beginner",group:"D",day:"Thu",time:"06:30–07:00 PM",ta:"Akshay Sharma & Jayant Jain",tb:"Aniket Raj & Bhushan Thorve",stage:"Group Stage"},
   {code:"GD4b",cat:"Beginner",group:"D",day:"Thu",time:"07:10–07:40 PM",ta:"Aditya Narisetty & Animesh Sahoo",tb:"Bhanvi Kumar & Harshank Karia",stage:"Group Stage"},
   {code:"GD5b",cat:"Beginner",group:"D",day:"Thu",time:"07:50–08:20 PM",ta:"Aditya Narisetty & Animesh Sahoo",tb:"Aniket Raj & Bhushan Thorve",stage:"Group Stage"},
   {code:"GD6b",cat:"Beginner",group:"D",day:"Thu",time:"08:30–09:00 PM",ta:"Bhanvi Kumar & Harshank Karia",tb:"Aniket Raj & Bhushan Thorve",stage:"Group Stage"},
+  // Beginner Group E matches 5 & 6 + Inter+Adv Group E matches 2 & 3
+  {code:"GE3",cat:"Beginner",group:"E",day:"Thu",time:"09:10–09:40 PM",ta:"Akshansh Thakur & Sanchit Gupta",tb:"Kartavya Kothari & Rahul Krishnan",stage:"Group Stage"},
+  {code:"GE5",cat:"Beginner",group:"E",day:"Thu",time:"09:50–10:20 PM",ta:"Tarun Kumar & Shashank Dhurwe",tb:"Kartavya Kothari & Rahul Krishnan",stage:"Group Stage"},
+  {code:"GE6",cat:"Beginner",group:"E",day:"Thu",time:"10:30–11:00 PM",ta:"Niraj Kumar & Aditya H K",tb:"Kartavya Kothari & Rahul Krishnan",stage:"Group Stage"},
+  {code:"IE2",cat:"Inter+Adv",group:"E",day:"Thu",time:"11:10–11:40 PM",ta:"Pranjal Sonkar & Ashish Agarwal",tb:"Vishal Gala & Anudeep",stage:"Group Stage"},
+  {code:"IE3",cat:"Inter+Adv",group:"E",day:"Thu",time:"11:50 PM–12:20 AM",ta:"Parth Kapoor & Bhrigu Raj Das",tb:"Vishal Gala & Anudeep",stage:"Group Stage"},
+
   // FRIDAY KO
-  {code:"BQF1",cat:"Beginner",group:"QF",day:"Fri",time:"11:30 AM–12:00 PM",ta:"1st – Group A",tb:"2nd – Group B",stage:"Quarter Final"},
-  {code:"IQF1",cat:"Inter+Adv",group:"QF",day:"Fri",time:"12:10–12:40 PM",ta:"1st – Group A",tb:"2nd – Group B",stage:"Quarter Final"},
-  {code:"BQF2",cat:"Beginner",group:"QF",day:"Fri",time:"12:50–01:20 PM",ta:"1st – Group B",tb:"2nd – Group A",stage:"Quarter Final"},
-  {code:"IQF2",cat:"Inter+Adv",group:"QF",day:"Fri",time:"01:30–02:00 PM",ta:"1st – Group B",tb:"2nd – Group A",stage:"Quarter Final"},
-  {code:"BQF3",cat:"Beginner",group:"QF",day:"Fri",time:"02:10–02:40 PM",ta:"1st – Group C",tb:"2nd – Group D",stage:"Quarter Final"},
-  {code:"IQF3",cat:"Inter+Adv",group:"QF",day:"Fri",time:"02:50–03:20 PM",ta:"1st – Group C",tb:"2nd – Group D",stage:"Quarter Final"},
-  {code:"BQF4",cat:"Beginner",group:"QF",day:"Fri",time:"03:30–04:00 PM",ta:"1st – Group D",tb:"2nd – Group C",stage:"Quarter Final"},
-  {code:"IQF4",cat:"Inter+Adv",group:"QF",day:"Fri",time:"04:10–04:40 PM",ta:"1st – Group D",tb:"2nd – Group C",stage:"Quarter Final"},
+  {code:"BQF1",cat:"Beginner",group:"QF",day:"Fri",time:"11:30 AM–12:00 PM",ta:"1st – Group A",tb:"Wildcard 1",stage:"Quarter Final"},
+  {code:"IQF1",cat:"Inter+Adv",group:"QF",day:"Fri",time:"12:10–12:40 PM",ta:"1st – Group A",tb:"Wildcard 1",stage:"Quarter Final"},
+  {code:"BQF2",cat:"Beginner",group:"QF",day:"Fri",time:"12:50–01:20 PM",ta:"1st – Group B",tb:"Wildcard 2",stage:"Quarter Final"},
+  {code:"IQF2",cat:"Inter+Adv",group:"QF",day:"Fri",time:"01:30–02:00 PM",ta:"1st – Group B",tb:"Wildcard 2",stage:"Quarter Final"},
+  {code:"BQF3",cat:"Beginner",group:"QF",day:"Fri",time:"02:10–02:40 PM",ta:"1st – Group C",tb:"1st – Group D",stage:"Quarter Final"},
+  {code:"IQF3",cat:"Inter+Adv",group:"QF",day:"Fri",time:"02:50–03:20 PM",ta:"1st – Group C",tb:"1st – Group D",stage:"Quarter Final"},
+  {code:"BQF4",cat:"Beginner",group:"QF",day:"Fri",time:"03:30–04:00 PM",ta:"1st – Group E",tb:"Wildcard 3",stage:"Quarter Final"},
+  {code:"IQF4",cat:"Inter+Adv",group:"QF",day:"Fri",time:"04:10–04:40 PM",ta:"1st – Group E",tb:"Wildcard 3",stage:"Quarter Final"},
   {code:"BSF1",cat:"Beginner",group:"SF",day:"Fri",time:"04:50–05:20 PM",ta:"BQF1 Winner",tb:"BQF3 Winner",stage:"Semi Final"},
   {code:"ISF1",cat:"Inter+Adv",group:"SF",day:"Fri",time:"05:30–06:00 PM",ta:"IQF1 Winner",tb:"IQF3 Winner",stage:"Semi Final"},
   {code:"BSF2",cat:"Beginner",group:"SF",day:"Fri",time:"06:10–06:40 PM",ta:"BQF2 Winner",tb:"BQF4 Winner",stage:"Semi Final"},
@@ -509,13 +613,15 @@ const TEAMS = {
     A:["Pragati Ranjan & Anshuman Singh","Jay Gosalia & sohith","Rohan Pawar & Anuj Dhanger","Rishabh Surana & Nishant Parmar"],
     B:["Abhishek Kumar & Jimit Shah","Devendra Patidar & Rhea Adhikari","Osim Abes & Samarth Ladia","Aditya Singh Jadon & Salim Bhalerao"],
     C:["Indhranath Sri Ram & Shivam Tiwari","Fenil Kanjani & Sumit Kumar","Parita Kapadia & Bipin Podar","Nishieth Babu & Sumit Pandey"],
-    D:["Akshay Sharma & Jayant Jain","Aditya Narisetty & Animesh Sahoo","Bhanvi Kumar & Harshank Karia","Aniket Raj & Bhushan Thorve"]
+    D:["Akshay Sharma & Jayant Jain","Aditya Narisetty & Animesh Sahoo","Bhanvi Kumar & Harshank Karia","Aniket Raj & Bhushan Thorve"],
+    E:["Akshansh Thakur & Sanchit Gupta","Tarun Kumar & Shashank Dhurwe","Niraj Kumar & Aditya H K","Kartavya Kothari & Rahul Krishnan"]
   },
   "Inter+Adv":{
     A:["Nihar Vira & Arif","Jinay Parekh & Gaurang Jadav","Hitesh Kapoor & Anupam Agrawal","Akash Sanan & Keerthi Ganesh"],
     B:["Saieesh Patil & Shreya Shobhane","Abhinn Kothari & Dheeraj","Bhavit Sheth & Vinayak Gupta","Pankaj Pandey & Koushik Akula"],
     C:["Swapnesh Kumar & Sarthak Mittal","Sahil Parsekar & Yash Shah","Sayan Chakraborty & Madhur Mittal","Manjeet Yadav & Sachin Nayak"],
-    D:["Chandni Padikkal & Siddharth Modha","Aditya Choudhary & Priyanshu Vaya","Rahul Prasad & Indresh Pal","Siddharth Suchak & Dharmveer Baloda"]
+    D:["Chandni Padikkal & Siddharth Modha","Aditya Choudhary & Priyanshu Vaya","Rahul Prasad & Indresh Pal","Siddharth Suchak & Dharmveer Baloda"],
+    E:["Pranjal Sonkar & Ashish Agarwal","Parth Kapoor & Bhrigu Raj Das","Vishal Gala & Anudeep"]
   }
 };
 
@@ -553,22 +659,22 @@ function nav(id, pushState = true) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
   document.querySelectorAll('.ntab').forEach(t => t.classList.remove('on'));
   document.getElementById('page-' + id).classList.add('on');
-  const labels = {home:'Home',fixtures:'Fixtures',bracket:'Bracket',points:'Points Table'};
+  const labels = {home:'Home',fixtures:'Fixtures',bracket:'Semis & Finals',points:'Points Table',rules:'📋 Rules'};
   document.querySelectorAll('.ntab').forEach(t => { if(t.textContent.trim() === labels[id]) t.classList.add('on'); });
   if (id === 'fixtures') renderFixtures();
   if (id === 'bracket') renderBracket();
   if (id === 'points') renderPoints();
-  // Update URL hash
   if (pushState) {
-    const hash = id === 'home' ? '' : id;
-    history.pushState({page: id}, '', hash ? '#' + hash : window.location.pathname.replace(/#.*$/, ''));
+    try {
+      const hash = id === 'home' ? '' : id;
+      history.pushState({page: id}, '', hash ? '#' + hash : window.location.pathname.replace(/#.*$/, ''));
+    } catch(e) { /* sandboxed iframe – ignore */ }
   }
-  // Update breadcrumb
   renderBreadcrumb(id);
 }
 
 function renderBreadcrumb(id) {
-  const labels = {home:'Home',fixtures:'Fixtures',bracket:'Bracket',points:'Points Table'};
+  const labels = {home:'Home',fixtures:'Fixtures',bracket:'Semis & Finals',points:'Points Table',rules:'Rules'};
   const crumb = document.getElementById('breadcrumb');
   if (!crumb) return;
   if (id === 'home') {
@@ -581,20 +687,26 @@ function renderBreadcrumb(id) {
 
 // Handle browser back/forward
 window.addEventListener('popstate', (e) => {
-  const id = e.state?.page || routeFromHash();
-  nav(id, false);
+  try {
+    const id = e.state?.page || routeFromHash();
+    nav(id, false);
+  } catch(e) { /* sandboxed */ }
 });
 
 function routeFromHash() {
-  const hash = window.location.hash.replace('#', '').trim();
-  const valid = ['fixtures', 'bracket', 'points'];
-  return valid.includes(hash) ? hash : 'home';
+  try {
+    const hash = window.location.hash.replace('#', '').trim();
+    const valid = ['fixtures', 'bracket', 'points', 'rules'];
+    return valid.includes(hash) ? hash : 'home';
+  } catch(e) { return 'home'; }
 }
 
 // On load, route to correct page from hash
 window.addEventListener('DOMContentLoaded', () => {
-  const id = routeFromHash();
-  nav(id, false);
+  try {
+    const id = routeFromHash();
+    nav(id, false);
+  } catch(e) { nav('home', false); }
 });
 
 function toggleAdmin() {
@@ -659,15 +771,12 @@ function matchCard(m, hl = false) {
   if (sc) cls += ' scored';
   if (hl) cls += ' hl';
 
-  const wA = sc && sc.winsA > sc.winsB ? 'team-win' : sc && sc.winsB > sc.winsA ? 'team-lose' : '';
-  const wB = sc && sc.winsB > sc.winsA ? 'team-win' : sc && sc.winsA > sc.winsB ? 'team-lose' : '';
+  const wA = sc && sc.s1a > sc.s1b ? 'team-win' : sc && sc.s1b > sc.s1a ? 'team-lose' : '';
+  const wB = sc && sc.s1b > sc.s1a ? 'team-win' : sc && sc.s1a > sc.s1b ? 'team-lose' : '';
 
   let scoreHTML = '';
   if (sc) {
-    const sets = [[sc.s1a,sc.s1b],[sc.s2a,sc.s2b],[sc.s3a,sc.s3b]];
-    scoreHTML = sets.map(([a,b]) =>
-      `<span class="set-chip${a>b?' w':''}">${a}</span><span style="color:var(--dim);font-size:9px">–</span><span class="set-chip${b>a?' w':''}">${b}</span>`
-    ).join('<span class="sep-pipe">|</span>');
+    scoreHTML = `<span class="set-chip${sc.s1a>sc.s1b?' w':''}">${sc.s1a}</span><span style="color:var(--dim);font-size:9px">–</span><span class="set-chip${sc.s1b>sc.s1a?' w':''}">${sc.s1b}</span>`;
     scoreHTML += `<span class="winner-tag">${sc.winner === 'Draw' ? 'Draw' : sc.winner.split(' & ')[0].trim() + ' won'}</span>`;
     const hist = sc.history || [];
     if (hist.length > 0) {
@@ -743,8 +852,13 @@ function openModal(code) {
   document.getElementById('modal-ta').textContent = m.ta;
   document.getElementById('modal-tb').textContent = m.tb;
   const sc = scores[code];
-  ['s1a','s1b','s2a','s2b','s3a','s3b'].forEach(id => { document.getElementById(id).value = sc ? sc[id] : ''; });
+  ['s1a','s1b'].forEach(id => { document.getElementById(id).value = sc ? sc[id] : ''; });
   document.getElementById('submitter-name').value = '';
+  // Clear any previous inline error and reset button state
+  const errBox = document.getElementById('score-error');
+  if (errBox) { errBox.style.display = 'none'; errBox.textContent = ''; }
+  const btn = document.getElementById('modal-submit-btn');
+  btn.disabled = false; btn.style.opacity = '1';
 
   // Fix 4: Show score history
   const historyContainer = document.getElementById('score-history-container');
@@ -803,16 +917,62 @@ function closeModal() {
   currentCode = null;
 }
 
+// ────────────────────────────────────────
+// SCORE VALIDATION (shared by inline + submit)
+// Returns null if valid, or an error string
+// ────────────────────────────────────────
+function getScoreError(a, b) {
+  if (a > 17 || b > 17) return '❌ Maximum score is 17 (hard cap). No score can exceed 17.';
+  const hi = Math.max(a, b), lo = Math.min(a, b);
+  if (hi === 0 && lo === 0) return null; // blank / reset — handled separately
+  if (hi < 15) return null; // incomplete game — warn at submit, not inline
+  // hi >= 15
+  if (hi === 17) {
+    // Cap rule: 17 wins by 1 is fine, but opponent must be exactly 16 or less
+    if (lo > 16) return `❌ Invalid: if a team scores 17, the opponent can be at most 16. Score ${a}–${b} is not allowed.`;
+    return null; // 17–16 or lower → valid
+  }
+  // hi is 15 or 16 → must win by 2
+  if (hi - lo < 2) {
+    const need = lo + 2;
+    if (need <= 17) {
+      return `❌ Must win by 2 points. At ${lo}–${lo}, play continues until one team leads by 2 (or reaches the cap of 17). Try ${need}–${lo} or keep playing to 17–16.`;
+    } else {
+      return `❌ Must win by 2 points. At ${lo}–${lo}, the only valid finish is 17–16 (hard cap).`;
+    }
+  }
+  return null; // valid
+}
+
+function validateScoreInline() {
+  const a = parseInt(document.getElementById('s1a').value) || 0;
+  const b = parseInt(document.getElementById('s1b').value) || 0;
+  const err = getScoreError(a, b);
+  const box = document.getElementById('score-error');
+  const btn = document.getElementById('modal-submit-btn');
+  if (err) {
+    box.textContent = err;
+    box.style.display = 'block';
+    btn.disabled = true;
+    btn.style.opacity = '.45';
+  } else {
+    box.style.display = 'none';
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  }
+}
+
 async function submitScore() {
   const code = currentCode;
   const m = MATCHES.find(x => x.code === code);
   const submitter = document.getElementById('submitter-name').value.trim();
   if (!submitter) { alert('Please enter your name before submitting!'); return; }
-  const [s1a,s1b,s2a,s2b,s3a,s3b] = ['s1a','s1b','s2a','s2b','s3a','s3b'].map(id => parseInt(document.getElementById(id).value) || 0);
+  const s1a = parseInt(document.getElementById('s1a').value) || 0;
+  const s1b = parseInt(document.getElementById('s1b').value) || 0;
 
-  // Fix 5: If all scores are 0, reset/delete the match score
-  if (s1a===0 && s1b===0 && s2a===0 && s2b===0 && s3a===0 && s3b===0) {
-    if (!confirm('All scores are 0. This will RESET this match as if it never happened. Continue?')) return;
+  // Reset if both zero
+  if (s1a === 0 && s1b === 0) {
+    if (!confirm('Both scores are 0. This will RESET this match as if it never happened. Continue?')) return;
     document.getElementById('modal-submit-btn').disabled = true;
     document.getElementById('saving-txt').classList.add('on');
     try {
@@ -829,24 +989,35 @@ async function submitScore() {
     return;
   }
 
-  if (s1a > 11 || s1b > 11) { alert('Set 1 max is 11!'); return; }
-  if (s2a > 7 || s2b > 7) { alert('Set 2 max is 7!'); return; }
-  if (s3a > 7 || s3b > 7) { alert('Set 3 max is 7!'); return; }
-  const winsA = (s1a>s1b?1:0)+(s2a>s2b?1:0)+(s3a>s3b?1:0);
-  const winsB = (s1b>s1a?1:0)+(s2b>s2a?1:0)+(s3b>s3a?1:0);
-  const winner = winsA > winsB ? m.ta : winsB > winsA ? m.tb : 'Draw';
+  // Hard validation (catches anything inline missed, e.g. direct submit)
+  const err = getScoreError(s1a, s1b);
+  if (err) {
+    const box = document.getElementById('score-error');
+    box.textContent = err;
+    box.style.display = 'block';
+    return;
+  }
 
-  // Fix 4: Build score history (max 2 entries)
+  // Warn if neither team has reached 15
+  const hi = Math.max(s1a, s1b);
+  if (hi < 15) {
+    if (!confirm(`Neither team has reached 15 yet (${s1a}–${s1b}). Are you sure this is the final score?`)) return;
+  }
+
+  const winner = s1a > s1b ? m.ta : s1b > s1a ? m.tb : 'Draw';
+  const winsA = s1a > s1b ? 1 : 0;
+  const winsB = s1b > s1a ? 1 : 0;
+
   const existing = scores[code];
   const history = existing?.history ? [...existing.history] : [];
   if (history.length >= 2) {
     alert('This score has already been submitted and corrected once. No further edits allowed. Contact admin if needed.');
     return;
   }
-  const scoreStr = `${s1a}-${s1b} | ${s2a}-${s2b} | ${s3a}-${s3b}`;
+  const scoreStr = `${s1a}–${s1b}`;
   history.push({ submittedBy: submitter, ts: Date.now(), scoreStr, winner });
 
-  const data = {s1a,s1b,s2a,s2b,s3a,s3b,winsA,winsB,winner,submittedBy:submitter,ts:Date.now(),history};
+  const data = {s1a, s1b, s2a:0, s2b:0, s3a:0, s3b:0, winsA, winsB, winner, submittedBy:submitter, ts:Date.now(), history};
   document.getElementById('modal-submit-btn').disabled = true;
   document.getElementById('saving-txt').classList.add('on');
   try {
@@ -893,12 +1064,10 @@ function teamStats(team, cat) {
   ms.forEach(m => {
     const sc = scores[m.code];
     const isA = m.ta === team;
-    const mw = isA ? sc.winsA : sc.winsB, ow = isA ? sc.winsB : sc.winsA;
-    if (mw > ow) { w++; pts += 3; } else if (mw === ow) { pts += 1; } else { l++; }
-    sw += mw; sl += ow;
-    const my = isA ? [sc.s1a,sc.s2a,sc.s3a] : [sc.s1b,sc.s2b,sc.s3b];
-    const op = isA ? [sc.s1b,sc.s2b,sc.s3b] : [sc.s1a,sc.s2a,sc.s3a];
-    my.forEach((s,i) => { pf += s; pa += op[i]; });
+    const myScore = isA ? sc.s1a : sc.s1b;
+    const opScore = isA ? sc.s1b : sc.s1a;
+    if (myScore > opScore) { w++; pts += 3; sw++; } else if (myScore === opScore) { pts += 1; } else { l++; sl++; }
+    pf += myScore; pa += opScore;
   });
   return {team, played:ms.length, w, l, pts, sw, sl, pf, pa};
 }
@@ -914,9 +1083,11 @@ function renderTeamScoresPanel(team, cat, group) {
     if (!sc) {
       html += `<div class="tsp-match"><span class="tsp-opp">vs ${opp}</span><span class="tsp-result res-p">Pending</span><span class="tsp-sets">${m.day} · ${m.time}</span></div>`;
     } else {
-      const mw = isA ? sc.winsA : sc.winsB, ow = isA ? sc.winsB : sc.winsA;
-      const res = mw > ow ? 'W' : mw < ow ? 'L' : 'D';
-      const sets = `${sc.s1a}–${sc.s1b} | ${sc.s2a}–${sc.s2b} | ${sc.s3a}–${sc.s3b}`;
+      const isA = m.ta === team;
+      const myScore = isA ? sc.s1a : sc.s1b;
+      const opScore = isA ? sc.s1b : sc.s1a;
+      const res = myScore > opScore ? 'W' : myScore < opScore ? 'L' : 'D';
+      const sets = `${sc.s1a}–${sc.s1b}`;
       html += `<div class="tsp-match"><span class="tsp-opp">vs ${opp}</span><span class="tsp-result res-${res.toLowerCase()}">${res}</span><span class="tsp-sets">${sets}</span></div>`;
     }
   });
@@ -945,13 +1116,13 @@ function renderPoints() {
     html += `<div class="pt-group-card">
       <div class="pt-group-hdr">
         <div class="pt-group-name"><span class="grp-badge ${ptCat==='Beginner'?'gb-beg':'gb-int'}" style="font-size:12px">GROUP ${grp}</span></div>
-        <span class="pt-adv-note">${allPlayed ? 'Top 2 → Quarter Finals' : `${scoredGroupMatches}/${groupMatchCount} matches played`}</span>
+        <span class="pt-adv-note">${allPlayed ? '🏆 1st → Quarter Finals' : `${scoredGroupMatches}/${groupMatchCount} matches played`}</span>
       </div>
       <table class="pt-table">
-        <thead><tr><th>#</th><th>Team</th><th>P</th><th>W</th><th>L</th><th>Sets</th><th>+/–</th><th>PTS</th><th></th><th></th></tr></thead>
+        <thead><tr><th>#</th><th>Team</th><th>P</th><th>W</th><th>L</th><th>Pts For</th><th>+/–</th><th>PTS</th><th></th><th></th></tr></thead>
         <tbody>`;
     stats.forEach((s, i) => {
-      const adv = allPlayed && i < 2;
+      const adv = allPlayed && i < 1;
       const [p1,p2] = (s.team||'').split(' & ');
       const diff = s.pf - s.pa;
       const rowScored = s.played > 0;
@@ -961,7 +1132,7 @@ function renderPoints() {
         <td>${s.played}</td>
         <td class="pt-wins">${s.w}</td>
         <td style="color:var(--red)">${s.l}</td>
-        <td>${s.sw}–${s.sl}</td>
+        <td>${s.pf}</td>
         <td style="color:${diff>=0?'var(--green)':'var(--red)'}">${diff>0?'+':''}${diff}</td>
         <td class="pt-pts">${s.pts}</td>
         <td>${adv?`<span class="adv-pill">↑ QF</span>`:''}</td>
@@ -987,10 +1158,18 @@ function setBrCat(cat) {
   renderBracket();
 }
 
-function getTopTeams(cat, group, n=2) {
+function isGroupComplete(cat, group) {
   const teams = TEAMS[cat][group] || [];
-  const stats = teams.map(t => teamStats(t, cat)).sort((a,b) => b.pts-a.pts || b.w-a.w || (b.sw-b.sl)-(a.sw-a.sl));
-  return stats.slice(0,n).map(s => s.played > 0 ? s.team : null);
+  const groupMatches = MATCHES.filter(m => m.cat === cat && m.stage === 'Group Stage' && teams.includes(m.ta) && teams.includes(m.tb));
+  if (groupMatches.length === 0) return false;
+  return groupMatches.every(m => !!scores[m.code]);
+}
+
+function getTopTeams(cat, group, n=2) {
+  if (!isGroupComplete(cat, group)) return Array(n).fill(null);
+  const teams = TEAMS[cat][group] || [];
+  const stats = teams.map(t => teamStats(t, cat)).sort((a,b) => b.pts-a.pts || b.w-a.w || (b.pf-b.pa)-(a.pf-a.pa));
+  return stats.slice(0,n).map(s => s.team);
 }
 
 function getKOWinner(code) {
@@ -1005,13 +1184,21 @@ function bracketTeam(name, isWinner) {
 
 function renderBracket() {
   const pfx = brCat === 'Beginner' ? 'B' : 'I';
-  // Get QF participants from group stage standings
-  const grpA1 = getTopTeams(brCat,'A')[0], grpA2 = getTopTeams(brCat,'A')[1];
-  const grpB1 = getTopTeams(brCat,'B')[0], grpB2 = getTopTeams(brCat,'B')[1];
-  const grpC1 = getTopTeams(brCat,'C')[0], grpC2 = getTopTeams(brCat,'C')[1];
-  const grpD1 = getTopTeams(brCat,'D')[0], grpD2 = getTopTeams(brCat,'D')[1];
 
-  // QF matchups: A1 vs B2, B1 vs A2, C1 vs D2, D1 vs C2
+  // Group winners — only populated once that group's matches are all done
+  const grpA1 = getTopTeams(brCat,'A')[0];
+  const grpB1 = getTopTeams(brCat,'B')[0];
+  const grpC1 = getTopTeams(brCat,'C')[0];
+  const grpD1 = getTopTeams(brCat,'D')[0];
+  const grpE1 = getTopTeams(brCat,'E')[0];
+
+  const grpADone = isGroupComplete(brCat,'A');
+  const grpBDone = isGroupComplete(brCat,'B');
+  const grpCDone = isGroupComplete(brCat,'C');
+  const grpDDone = isGroupComplete(brCat,'D');
+  const grpEDone = isGroupComplete(brCat,'E');
+  const allGroupsDone = grpADone && grpBDone && grpCDone && grpDDone && grpEDone;
+
   const qf1w = getKOWinner(`${pfx}QF1`);
   const qf2w = getKOWinner(`${pfx}QF2`);
   const qf3w = getKOWinner(`${pfx}QF3`);
@@ -1020,34 +1207,60 @@ function renderBracket() {
   const sf2w = getKOWinner(`${pfx}SF2`);
   const finW = getKOWinner(`${pfx}FINAL`);
 
-  function bm(ta, tb, winner, code) {
-    const aW = winner === ta, bW = winner === tb;
-    const taShort = ta ? ta.split(' & ')[0] : 'TBD';
-    const tbShort = tb ? tb.split(' & ')[0] : 'TBD';
-    return `<div class="bracket-match${winner?' has-winner':''}${code?.includes('FINAL')?' is-final':''}">
-      <div class="bm-team"><span class="bm-name${!ta?' tbd':aW?' winner':''}">${taShort}</span><span class="bm-score${aW?' winner':''}">${aW?'W':''}</span></div>
-      <div class="bm-team"><span class="bm-name${!tb?' tbd':bW?' winner':''}">${tbShort}</span><span class="bm-score${bW?' winner':''}">${bW?'W':''}</span></div>
+  // pending label helper
+  function pending(groupLetter) {
+    return `<span style="font-size:10px;color:var(--dim);font-style:italic">Grp ${groupLetter} in progress…</span>`;
+  }
+
+  function bmSlot(team, isDone, fallbackLabel, winner) {
+    // team = resolved name or null; isDone = whether this group finished
+    const isWinner = winner && winner === team;
+    if (isDone && team) {
+      return `<span class="bm-name${isWinner?' winner':''}">${team.split(' & ')[0]}</span><span class="bm-score${isWinner?' winner':''}">${isWinner?'W':''}</span>`;
+    }
+    if (isDone && !team) {
+      // group done but wildcard slot — filled by admin
+      return `<span class="bm-name tbd">${fallbackLabel}</span><span class="bm-score"></span>`;
+    }
+    return `<span class="bm-name tbd" style="font-style:italic;font-size:10px">${fallbackLabel}</span><span class="bm-score"></span>`;
+  }
+
+  function bm(teamA, teamB, isDoneA, isDoneB, winner, code, labelA, labelB) {
+    const hasWinner = !!winner;
+    return `<div class="bracket-match${hasWinner?' has-winner':''}${code?.includes('FINAL')?' is-final':''}">
+      <div class="bm-team">${bmSlot(teamA, isDoneA, labelA, winner)}</div>
+      <div class="bm-team">${bmSlot(teamB, isDoneB, labelB, winner)}</div>
     </div>`;
   }
 
-  const html = `<div class="bracket">
+  // Progress summary
+  const doneCt = [grpADone,grpBDone,grpCDone,grpDDone,grpEDone].filter(Boolean).length;
+  const progressNote = allGroupsDone
+    ? `<span style="color:var(--green);font-weight:700">✓ All group stages complete — bracket fully seeded</span>`
+    : `<span style="color:var(--amber)">${doneCt}/5 groups complete · bracket slots populate as groups finish</span>`;
+
+  const html = `
+  <div style="margin-bottom:.75rem;font-size:11px;color:var(--muted);background:rgba(212,138,0,.06);border:1px solid rgba(212,138,0,.2);border-radius:8px;padding:.5rem .75rem">
+    🏆 <strong>8 teams advance per category:</strong> 5 group winners (A–E) + 3 wildcards · ${progressNote}
+  </div>
+  <div class="bracket">
     <div class="round">
       <div class="round-title">QUARTER FINALS</div>
-      ${bm(grpA1,grpB2,qf1w,`${pfx}QF1`)}
-      ${bm(grpB1,grpA2,qf2w,`${pfx}QF2`)}
-      ${bm(grpC1,grpD2,qf3w,`${pfx}QF3`)}
-      ${bm(grpD1,grpC2,qf4w,`${pfx}QF4`)}
+      ${bm(grpA1, null, grpADone, allGroupsDone, qf1w, `${pfx}QF1`, grpADone?'Grp A Winner':'Grp A (pending)', allGroupsDone?'Wildcard 1':'Wildcards TBD')}
+      ${bm(grpB1, null, grpBDone, allGroupsDone, qf2w, `${pfx}QF2`, grpBDone?'Grp B Winner':'Grp B (pending)', allGroupsDone?'Wildcard 2':'Wildcards TBD')}
+      ${bm(grpC1, grpD1, grpCDone, grpDDone, qf3w, `${pfx}QF3`, grpCDone?'Grp C Winner':'Grp C (pending)', grpDDone?'Grp D Winner':'Grp D (pending)')}
+      ${bm(grpE1, null, grpEDone, allGroupsDone, qf4w, `${pfx}QF4`, grpEDone?'Grp E Winner':'Grp E (pending)', allGroupsDone?'Wildcard 3':'Wildcards TBD')}
     </div>
     <div class="round" style="justify-content:space-around;padding-top:2.5rem">
       <div class="round-title">SEMI FINALS</div>
-      ${bm(qf1w,qf3w,sf1w,`${pfx}SF1`)}
-      ${bm(qf2w,qf4w,sf2w,`${pfx}SF2`)}
+      ${bm(qf1w, qf3w, !!qf1w, !!qf3w, sf1w, `${pfx}SF1`, 'QF1 Winner', 'QF3 Winner')}
+      ${bm(qf2w, qf4w, !!qf2w, !!qf4w, sf2w, `${pfx}SF2`, 'QF2 Winner', 'QF4 Winner')}
     </div>
     <div class="round" style="justify-content:center;padding-top:5rem">
       <div class="round-title" style="color:var(--amber)">🏆 FINAL</div>
       <div class="bracket-match is-final${finW?' has-winner':''}">
-        <div class="bm-team"><span class="bm-name${!sf1w?' tbd':finW===sf1w?' winner':''}">${sf1w?sf1w.split(' & ')[0]:'TBD'}</span><span class="bm-score${finW===sf1w?' winner':''}">${finW===sf1w?'🏆':''}</span></div>
-        <div class="bm-team"><span class="bm-name${!sf2w?' tbd':finW===sf2w?' winner':''}">${sf2w?sf2w.split(' & ')[0]:'TBD'}</span><span class="bm-score${finW===sf2w?' winner':''}">${finW===sf2w?'🏆':''}</span></div>
+        <div class="bm-team"><span class="bm-name${!sf1w?' tbd':finW===sf1w?' winner':''}">${sf1w?sf1w.split(' & ')[0]:'SF1 Winner'}</span><span class="bm-score${finW===sf1w?' winner':''}">${finW===sf1w?'🏆':''}</span></div>
+        <div class="bm-team"><span class="bm-name${!sf2w?' tbd':finW===sf2w?' winner':''}">${sf2w?sf2w.split(' & ')[0]:'SF2 Winner'}</span><span class="bm-score${finW===sf2w?' winner':''}">${finW===sf2w?'🏆':''}</span></div>
       </div>
       ${finW ? `<div style="text-align:center;margin-top:.75rem;font-family:var(--display);font-size:16px;letter-spacing:2px;color:#fcd34d">🏆 ${finW.split(' & ')[0]}</div>` : ''}
     </div>
