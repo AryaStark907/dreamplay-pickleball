@@ -274,11 +274,107 @@ nav{position:sticky;top:0;z-index:100;background:#1c1c1a;border-bottom:1px solid
 #fb-dot{position:fixed;bottom:1rem;right:1rem;z-index:99;width:8px;height:8px;border-radius:50%;background:var(--dim)}
 #fb-dot.live{background:var(--green);box-shadow:0 0 6px rgba(45,122,79,.5)}
 
-@media(max-width:600px){
-  .bracket{min-width:700px}
-  .fcard-teams{flex-direction:column;align-items:flex-start;gap:.3rem}
-  .vs-lbl{align-self:center}
-  .ntab{padding:0 .65rem;font-size:11px}
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  /* Nav — scrollable tabs */
+  .nav-inner{padding:0 .75rem;height:50px}
+  .nav-logo{font-size:17px;letter-spacing:2px;margin-right:1rem}
+  .nav-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .nav-tabs::-webkit-scrollbar{display:none}
+  .ntab{padding:0 .75rem;font-size:11px;white-space:nowrap;height:50px}
+  .breadcrumb-bar{top:50px}
+
+  /* Hero */
+  .hero{padding:1.5rem 0 1.25rem}
+  .hero h1{font-size:clamp(36px,12vw,64px);letter-spacing:3px}
+  .hero-sub{font-size:13px}
+  .hero-stats{gap:1.5rem}
+  .hstat-v{font-size:28px}
+
+  /* Home cards — 2 col on tablet */
+  .home-cards{grid-template-columns:repeat(2,1fr);gap:.6rem}
+  .hcard{padding:1rem}
+  .hcard-icon{font-size:22px;margin-bottom:.4rem}
+  .hcard-title{font-size:17px}
+
+  /* Info strip — 2 col */
+  .info-strip{grid-template-columns:repeat(2,1fr)}
+
+  /* Fixture cards */
+  .fcard{padding:.75rem .85rem}
+  .fcard-top{gap:4px}
+  .fcard-teams{flex-direction:row}
+  .team-nm{font-size:12px}
+  .fc-time{font-size:11px;padding:2px 7px}
+
+  /* Score modal */
+  .modal{padding:1.25rem;border-radius:12px}
+  .modal-title{font-size:18px}
+  .set-inp input{font-size:18px;padding:8px}
+
+  /* Points table — hide less important cols */
+  .pt-table th:nth-child(6),
+  .pt-table td:nth-child(6){ display:none }
+
+  /* Bracket */
+  .bracket{min-width:640px}
+}
+
+@media(max-width:480px){
+  /* Nav — hide logo text, show icon only */
+  .nav-logo span{display:none}
+  .nav-logo{margin-right:.5rem}
+  .ntab{padding:0 .6rem;font-size:10.5px}
+  .admin-btn{padding:0 8px;font-size:10px}
+
+  /* Hero */
+  .hero{padding:1.25rem 0 1rem}
+  .hero h1{letter-spacing:2px}
+  .hero-stats{gap:1.25rem}
+  .hstat-v{font-size:26px}
+  .hstat-l{font-size:9px}
+
+  /* Home cards — 1 col on phone */
+  .home-cards{grid-template-columns:1fr}
+
+  /* Info strip — 2 col still works, values shrink */
+  .info-strip{grid-template-columns:repeat(2,1fr);gap:.4rem}
+  .info-val{font-size:11px}
+
+  /* Page title */
+  .page-title{font-size:22px;letter-spacing:2px}
+
+  /* Filter chips */
+  .fchip{padding:4px 10px;font-size:10px}
+
+  /* Fixture card */
+  .fcard-teams{flex-direction:column;align-items:flex-start;gap:.25rem}
+  .vs-lbl{display:none}
+  .team-nm.team-b{text-align:left}
+  .team-nm{font-size:12px}
+  .fc-code{display:none}
+  .score-cta{font-size:12px;padding:9px 12px}
+
+  /* Points table — tighter */
+  .pt-table td,.pt-table th{padding:7px 6px}
+  .pt-table th:nth-child(6),
+  .pt-table td:nth-child(6),
+  .pt-table th:nth-child(7),
+  .pt-table td:nth-child(7){display:none}
+  .view-scores-btn{font-size:9px;padding:2px 5px}
+
+  /* Modal */
+  .modal{padding:1rem;margin:.5rem}
+  .modal-title{font-size:17px}
+  .mt-name{font-size:11px}
+  .set-inp input{font-size:16px}
+
+  /* Bracket */
+  .bracket{min-width:560px}
+  .bracket-wrap{margin:0 -.5rem}
+
+  /* Score error box */
+  #score-error{font-size:11px}
 }
 </style>
 </head>
