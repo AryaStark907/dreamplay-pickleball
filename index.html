@@ -63,11 +63,6 @@ nav{position:sticky;top:0;z-index:100;background:#1c1c1a;border-bottom:1px solid
 .ntab{height:54px;padding:0 1rem;display:flex;align-items:center;font-size:12px;font-weight:600;letter-spacing:.06em;color:#888884;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
 .ntab:hover{color:#fff}
 .ntab.on{color:#fff;border-bottom-color:var(--accent)}
-.nav-admin{margin-left:auto;flex-shrink:0}
-.admin-btn{height:30px;padding:0 12px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.06em;cursor:pointer;border:1px solid #3a3a37;background:transparent;color:#888884;transition:all .18s}
-.admin-btn:hover{border-color:#888884;color:#fff}
-.admin-btn.on{background:rgba(224,90,43,.15);border-color:var(--accent);color:var(--accent)}
-
 /* ── BREADCRUMB ── */
 .breadcrumb-bar{background:var(--s2);border-bottom:1px solid var(--border);padding:0 1.25rem;height:36px;display:flex;align-items:center;position:sticky;top:54px;z-index:99}
 .bc-item{font-size:12px;font-weight:500;color:var(--muted)}
@@ -190,13 +185,6 @@ nav{position:sticky;top:0;z-index:100;background:#1c1c1a;border-bottom:1px solid
 .modal-submit:disabled{opacity:.35;cursor:not-allowed}
 .saving-txt{text-align:center;font-size:11px;color:var(--muted);margin-top:.4rem;display:none}
 .saving-txt.on{display:block}
-
-/* ADMIN PANEL inside modal */
-.admin-section{margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border)}
-.admin-label{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--accent);margin-bottom:.5rem}
-.admin-override{display:flex;align-items:center;gap:6px}
-.admin-override select{flex:1;background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:var(--body);font-size:12px;color:var(--text);outline:none}
-.admin-override button{padding:7px 12px;border-radius:6px;background:var(--accent);border:1px solid var(--accent);color:#fff;font-size:11px;font-weight:700;cursor:pointer}
 
 /* ── BRACKET ── */
 .bracket-wrap{overflow-x:auto;padding-bottom:1rem}
@@ -397,9 +385,6 @@ nav{position:sticky;top:0;z-index:100;background:#1c1c1a;border-bottom:1px solid
       <button class="ntab" onclick="nav('points')">Points Table</button>
       <button class="ntab" onclick="nav('rules')">📋 Rules</button>
     </div>
-    <div class="nav-admin">
-      <button class="admin-btn" id="admin-toggle" onclick="toggleAdmin()">⚙ Admin</button>
-    </div>
   </div>
 </nav>
 
@@ -407,18 +392,247 @@ nav{position:sticky;top:0;z-index:100;background:#1c1c1a;border-bottom:1px solid
 
 <!-- HOME -->
 <div id="page-home" class="page on">
-  <div class="hero">
-    <div class="hero-pill">🏆 TOURNAMENT 2026</div>
-    <h1>DREAMPLAY<br>PICKLEBALL</h1>
-    <div class="hero-sub">7th Floor Pickle Court · 21–25 April 2026</div>
-    <div class="hero-stats">
-      <div><div class="hstat-v">39</div><div class="hstat-l">Teams</div></div>
-      <div><div class="hstat-v">2</div><div class="hstat-l">Categories</div></div>
-      <div><div class="hstat-v">5</div><div class="hstat-l">Days</div></div>
+
+  <!-- TOP HERO — illustration behind this block only -->
+  <div style="position:relative;overflow:hidden;border-radius:16px;margin-bottom:1rem">
+
+    <!-- Background illustration -->
+    <div style="position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.30">
+      <svg viewBox="0 0 1100 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+        <defs>
+          <clipPath id="paddle-face-clip"><rect x="-30" y="-70" width="60" height="70" rx="12"/></clipPath>
+        </defs>
+
+        <!-- ISOMETRIC COURT -->
+        <g transform="translate(550,270)">
+          <polygon points="0,-165 310,0 0,165 -310,0" fill="#4db8b8"/>
+          <polygon points="0,-165 310,0 0,165 -310,0" fill="none" stroke="#fff" stroke-width="3"/>
+          <line x1="-310" y1="0" x2="310" y2="0" stroke="#fff" stroke-width="3"/>
+          <line x1="0" y1="-165" x2="0" y2="165" stroke="#fff" stroke-width="2"/>
+          <line x1="-190" y1="-100" x2="0" y2="0" stroke="#fff" stroke-width="2" opacity=".6"/>
+          <line x1="190" y1="-100" x2="0" y2="0" stroke="#fff" stroke-width="2" opacity=".6"/>
+          <line x1="-190" y1="100" x2="0" y2="0" stroke="#fff" stroke-width="2" opacity=".6"/>
+          <line x1="190" y1="100" x2="0" y2="0" stroke="#fff" stroke-width="2" opacity=".6"/>
+          <polygon points="-310,0 -310,26 0,191 0,165" fill="#3a9999"/>
+          <polygon points="310,0 310,26 0,191 0,165" fill="#2d8080"/>
+        </g>
+
+        <!-- NET -->
+        <g transform="translate(550,270)">
+          <line x1="-310" y1="0" x2="310" y2="0" stroke="#ddd" stroke-width="5"/>
+          <line x1="-310" y1="0" x2="-310" y2="-38" stroke="#bbb" stroke-width="6"/>
+          <line x1="310" y1="0" x2="310" y2="-38" stroke="#bbb" stroke-width="6"/>
+          <rect x="-310" y="-38" width="620" height="38" fill="none" stroke="#ccc" stroke-width="1.5"/>
+          <line x1="-310" y1="-13" x2="310" y2="-13" stroke="#ccc" stroke-width="1.5" opacity=".7"/>
+          <line x1="-310" y1="-26" x2="310" y2="-26" stroke="#ccc" stroke-width="1.5" opacity=".7"/>
+          <line x1="-250" y1="-38" x2="-250" y2="0" stroke="#ccc" stroke-width="1.5" opacity=".5"/>
+          <line x1="-190" y1="-38" x2="-190" y2="0" stroke="#ccc" stroke-width="1.5" opacity=".5"/>
+          <line x1="-130" y1="-38" x2="-130" y2="0" stroke="#ccc" stroke-width="1.5" opacity=".5"/>
+          <line x1="-70" y1="-38" x2="-70" y2="0" stroke="#ccc" stroke-width="1.5" opacity=".5"/>
+          <line x1="-10" y1="-38" x2="-10" y2="0" stroke="#ccc" stroke-width="1.5" opacity=".5"/>
+          <line x1="50" y1="-38" x2="50" y2="0" stroke="#ccc" stroke-width="1.5" opacity=".5"/>
+          <line x1="110" y1="-38" x2="110" y2="0" stroke="#ccc" stroke-width="1.5" opacity=".5"/>
+          <line x1="170" y1="-38" x2="170" y2="0" stroke="#ccc" stroke-width="1.5" opacity=".5"/>
+          <line x1="230" y1="-38" x2="230" y2="0" stroke="#ccc" stroke-width="1.5" opacity=".5"/>
+          <line x1="290" y1="-38" x2="290" y2="0" stroke="#ccc" stroke-width="1.5" opacity=".5"/>
+        </g>
+
+        <!-- PLAYER 1 orange shirt -->
+        <g transform="translate(310,345)">
+          <circle cx="0" cy="-62" r="18" fill="#f4a261"/>
+          <rect x="-14" y="-44" width="28" height="38" rx="8" fill="#e05a2b"/>
+          <rect x="-22" y="-40" width="12" height="28" rx="6" fill="#e05a2b" transform="rotate(25,-22,-40)"/>
+          <rect x="10" y="-40" width="12" height="22" rx="6" fill="#e05a2b" transform="rotate(-38,10,-40)"/>
+          <rect x="-16" y="-6" width="13" height="36" rx="6" fill="#fff" transform="rotate(5,-16,-6)"/>
+          <rect x="3" y="-6" width="13" height="36" rx="6" fill="#fff" transform="rotate(-7,3,-6)"/>
+          <!-- CORRECT pickleball paddle: rect face + short handle -->
+          <g transform="translate(34,-52) rotate(-40)">
+            <rect x="-22" y="-56" width="44" height="56" rx="10" fill="#2d7a4f" stroke="#1a4f30" stroke-width="2.5"/>
+            <circle cx="-11" cy="-44" r="3.5" fill="#1a4f30" opacity=".6"/>
+            <circle cx="0" cy="-44" r="3.5" fill="#1a4f30" opacity=".6"/>
+            <circle cx="11" cy="-44" r="3.5" fill="#1a4f30" opacity=".6"/>
+            <circle cx="-11" cy="-31" r="3.5" fill="#1a4f30" opacity=".6"/>
+            <circle cx="0" cy="-31" r="3.5" fill="#1a4f30" opacity=".6"/>
+            <circle cx="11" cy="-31" r="3.5" fill="#1a4f30" opacity=".6"/>
+            <circle cx="-11" cy="-18" r="3.5" fill="#1a4f30" opacity=".6"/>
+            <circle cx="0" cy="-18" r="3.5" fill="#1a4f30" opacity=".6"/>
+            <circle cx="11" cy="-18" r="3.5" fill="#1a4f30" opacity=".6"/>
+            <rect x="-6" y="0" width="12" height="32" rx="5" fill="#c8a878" stroke="#a07840" stroke-width="2"/>
+          </g>
+        </g>
+
+        <!-- PLAYER 2 red shirt -->
+        <g transform="translate(730,345)">
+          <circle cx="0" cy="-62" r="18" fill="#f4a261"/>
+          <rect x="-14" y="-44" width="28" height="38" rx="8" fill="#c0392b"/>
+          <rect x="-22" y="-40" width="12" height="22" rx="6" fill="#c0392b" transform="rotate(-18,-22,-40)"/>
+          <rect x="10" y="-40" width="12" height="28" rx="6" fill="#c0392b" transform="rotate(30,10,-40)"/>
+          <rect x="-16" y="-6" width="13" height="36" rx="6" fill="#222" transform="rotate(-5,-16,-6)"/>
+          <rect x="3" y="-6" width="13" height="36" rx="6" fill="#222" transform="rotate(6,3,-6)"/>
+          <g transform="translate(-36,-52) rotate(38)">
+            <rect x="-22" y="-56" width="44" height="56" rx="10" fill="#b07a10" stroke="#7a5200" stroke-width="2.5"/>
+            <circle cx="-11" cy="-44" r="3.5" fill="#7a5200" opacity=".6"/>
+            <circle cx="0" cy="-44" r="3.5" fill="#7a5200" opacity=".6"/>
+            <circle cx="11" cy="-44" r="3.5" fill="#7a5200" opacity=".6"/>
+            <circle cx="-11" cy="-31" r="3.5" fill="#7a5200" opacity=".6"/>
+            <circle cx="0" cy="-31" r="3.5" fill="#7a5200" opacity=".6"/>
+            <circle cx="11" cy="-31" r="3.5" fill="#7a5200" opacity=".6"/>
+            <circle cx="-11" cy="-18" r="3.5" fill="#7a5200" opacity=".6"/>
+            <circle cx="0" cy="-18" r="3.5" fill="#7a5200" opacity=".6"/>
+            <circle cx="11" cy="-18" r="3.5" fill="#7a5200" opacity=".6"/>
+            <rect x="-6" y="0" width="12" height="32" rx="5" fill="#c8a878" stroke="#a07840" stroke-width="2"/>
+          </g>
+        </g>
+
+        <!-- PLAYER 3 blue shirt -->
+        <g transform="translate(370,185)">
+          <circle cx="0" cy="-62" r="18" fill="#f4a261"/>
+          <rect x="-14" y="-44" width="28" height="38" rx="8" fill="#2d5fa0"/>
+          <rect x="-22" y="-40" width="12" height="26" rx="6" fill="#2d5fa0" transform="rotate(15,-22,-40)"/>
+          <rect x="10" y="-40" width="12" height="26" rx="6" fill="#2d5fa0" transform="rotate(-15,10,-40)"/>
+          <rect x="-16" y="-6" width="13" height="34" rx="6" fill="#1c1c1a" transform="rotate(4,-16,-6)"/>
+          <rect x="3" y="-6" width="13" height="34" rx="6" fill="#1c1c1a" transform="rotate(-3,3,-6)"/>
+          <g transform="translate(32,-46) rotate(-28)">
+            <rect x="-22" y="-56" width="44" height="56" rx="10" fill="#2d5fa0" stroke="#1a3c70" stroke-width="2.5"/>
+            <line x1="-16" y1="-54" x2="-16" y2="-2" stroke="#fff" stroke-width="3.5" opacity=".4"/>
+            <line x1="-5" y1="-54" x2="-5" y2="-2" stroke="#fff" stroke-width="3.5" opacity=".4"/>
+            <line x1="6" y1="-54" x2="6" y2="-2" stroke="#fff" stroke-width="3.5" opacity=".4"/>
+            <circle cx="-11" cy="-44" r="3.5" fill="#1a3c70" opacity=".5"/>
+            <circle cx="0" cy="-44" r="3.5" fill="#1a3c70" opacity=".5"/>
+            <circle cx="11" cy="-44" r="3.5" fill="#1a3c70" opacity=".5"/>
+            <circle cx="-11" cy="-31" r="3.5" fill="#1a3c70" opacity=".5"/>
+            <circle cx="0" cy="-31" r="3.5" fill="#1a3c70" opacity=".5"/>
+            <circle cx="11" cy="-31" r="3.5" fill="#1a3c70" opacity=".5"/>
+            <rect x="-6" y="0" width="12" height="32" rx="5" fill="#c8a878" stroke="#a07840" stroke-width="2"/>
+          </g>
+        </g>
+
+        <!-- PLAYER 4 green shirt -->
+        <g transform="translate(710,185)">
+          <circle cx="0" cy="-62" r="18" fill="#f4a261"/>
+          <rect x="-14" y="-44" width="28" height="38" rx="8" fill="#2d7a4f"/>
+          <rect x="-22" y="-40" width="12" height="26" rx="6" fill="#2d7a4f" transform="rotate(-10,-22,-40)"/>
+          <rect x="10" y="-40" width="12" height="26" rx="6" fill="#2d7a4f" transform="rotate(10,10,-40)"/>
+          <rect x="-16" y="-6" width="13" height="34" rx="6" fill="#fff" transform="rotate(-4,-16,-6)"/>
+          <rect x="3" y="-6" width="13" height="34" rx="6" fill="#fff" transform="rotate(4,3,-6)"/>
+          <g transform="translate(-34,-46) rotate(32)">
+            <rect x="-22" y="-56" width="44" height="56" rx="10" fill="#e05a2b" stroke="#a03010" stroke-width="2.5"/>
+            <circle cx="-11" cy="-44" r="3.5" fill="#a03010" opacity=".6"/>
+            <circle cx="0" cy="-44" r="3.5" fill="#a03010" opacity=".6"/>
+            <circle cx="11" cy="-44" r="3.5" fill="#a03010" opacity=".6"/>
+            <circle cx="-11" cy="-31" r="3.5" fill="#a03010" opacity=".6"/>
+            <circle cx="0" cy="-31" r="3.5" fill="#a03010" opacity=".6"/>
+            <circle cx="11" cy="-31" r="3.5" fill="#a03010" opacity=".6"/>
+            <circle cx="-11" cy="-18" r="3.5" fill="#a03010" opacity=".6"/>
+            <circle cx="0" cy="-18" r="3.5" fill="#a03010" opacity=".6"/>
+            <circle cx="11" cy="-18" r="3.5" fill="#a03010" opacity=".6"/>
+            <rect x="-6" y="0" width="12" height="32" rx="5" fill="#c8a878" stroke="#a07840" stroke-width="2"/>
+          </g>
+        </g>
+
+        <!-- BALL IN PLAY -->
+        <circle cx="549" cy="195" r="14" fill="#4db8b8" stroke="#2a8888" stroke-width="2.5"/>
+        <circle cx="544" cy="189" r="2.8" fill="#2a8888" opacity=".7"/>
+        <circle cx="554" cy="189" r="2.8" fill="#2a8888" opacity=".7"/>
+        <circle cx="549" cy="198" r="2.8" fill="#2a8888" opacity=".7"/>
+        <circle cx="541" cy="199" r="2.8" fill="#2a8888" opacity=".7"/>
+        <circle cx="557" cy="199" r="2.8" fill="#2a8888" opacity=".7"/>
+
+        <!-- BIG DECORATIVE PADDLE LEFT: correct rect shape -->
+        <g transform="translate(88,310) rotate(-18)">
+          <rect x="-34" y="-82" width="68" height="82" rx="14" fill="#2d7a4f" stroke="#1a4f30" stroke-width="4"/>
+          <circle cx="-18" cy="-68" r="5" fill="#1a4f30" opacity=".55"/>
+          <circle cx="0"  cy="-68" r="5" fill="#1a4f30" opacity=".55"/>
+          <circle cx="18" cy="-68" r="5" fill="#1a4f30" opacity=".55"/>
+          <circle cx="-18" cy="-52" r="5" fill="#1a4f30" opacity=".55"/>
+          <circle cx="0"  cy="-52" r="5" fill="#1a4f30" opacity=".55"/>
+          <circle cx="18" cy="-52" r="5" fill="#1a4f30" opacity=".55"/>
+          <circle cx="-18" cy="-36" r="5" fill="#1a4f30" opacity=".55"/>
+          <circle cx="0"  cy="-36" r="5" fill="#1a4f30" opacity=".55"/>
+          <circle cx="18" cy="-36" r="5" fill="#1a4f30" opacity=".55"/>
+          <circle cx="-18" cy="-20" r="5" fill="#1a4f30" opacity=".55"/>
+          <circle cx="0"  cy="-20" r="5" fill="#1a4f30" opacity=".55"/>
+          <circle cx="18" cy="-20" r="5" fill="#1a4f30" opacity=".55"/>
+          <rect x="-11" y="0" width="22" height="52" rx="8" fill="#c8a878" stroke="#a07840" stroke-width="3"/>
+        </g>
+
+        <!-- BIG DECORATIVE PADDLE RIGHT: correct rect shape -->
+        <g transform="translate(1015,305) rotate(20)">
+          <rect x="-34" y="-82" width="68" height="82" rx="14" fill="#e05a2b" stroke="#a03010" stroke-width="4"/>
+          <circle cx="-18" cy="-68" r="5" fill="#a03010" opacity=".55"/>
+          <circle cx="0"  cy="-68" r="5" fill="#a03010" opacity=".55"/>
+          <circle cx="18" cy="-68" r="5" fill="#a03010" opacity=".55"/>
+          <circle cx="-18" cy="-52" r="5" fill="#a03010" opacity=".55"/>
+          <circle cx="0"  cy="-52" r="5" fill="#a03010" opacity=".55"/>
+          <circle cx="18" cy="-52" r="5" fill="#a03010" opacity=".55"/>
+          <circle cx="-18" cy="-36" r="5" fill="#a03010" opacity=".55"/>
+          <circle cx="0"  cy="-36" r="5" fill="#a03010" opacity=".55"/>
+          <circle cx="18" cy="-36" r="5" fill="#a03010" opacity=".55"/>
+          <circle cx="-18" cy="-20" r="5" fill="#a03010" opacity=".55"/>
+          <circle cx="0"  cy="-20" r="5" fill="#a03010" opacity=".55"/>
+          <circle cx="18" cy="-20" r="5" fill="#a03010" opacity=".55"/>
+          <rect x="-11" y="0" width="22" height="52" rx="8" fill="#c8a878" stroke="#a07840" stroke-width="3"/>
+        </g>
+
+        <!-- SCATTERED BALLS -->
+        <circle cx="118" cy="390" r="10" fill="#4db8b8" stroke="#2a8888" stroke-width="2"/>
+        <circle cx="113" cy="385" r="2.5" fill="#2a8888" opacity=".7"/>
+        <circle cx="122" cy="385" r="2.5" fill="#2a8888" opacity=".7"/>
+        <circle cx="118" cy="394" r="2.5" fill="#2a8888" opacity=".7"/>
+
+        <circle cx="978" cy="368" r="10" fill="#e8e030" stroke="#b0a800" stroke-width="2"/>
+        <circle cx="973" cy="363" r="2.5" fill="#b0a800" opacity=".7"/>
+        <circle cx="982" cy="363" r="2.5" fill="#b0a800" opacity=".7"/>
+        <circle cx="978" cy="372" r="2.5" fill="#b0a800" opacity=".7"/>
+
+        <circle cx="58" cy="145" r="10" fill="#e8e030" stroke="#b0a800" stroke-width="2"/>
+        <circle cx="53" cy="140" r="2.5" fill="#b0a800" opacity=".7"/>
+        <circle cx="62" cy="140" r="2.5" fill="#b0a800" opacity=".7"/>
+        <circle cx="58" cy="149" r="2.5" fill="#b0a800" opacity=".7"/>
+
+        <!-- WATER BOTTLES -->
+        <g transform="translate(200,118)">
+          <rect x="-9" y="-40" width="18" height="40" rx="6" fill="#4db8b8"/>
+          <rect x="-7" y="-47" width="14" height="9" rx="4" fill="#2d8888"/>
+          <rect x="-9" y="-22" width="18" height="6" fill="#fff" opacity=".35"/>
+        </g>
+        <g transform="translate(224,112)">
+          <rect x="-9" y="-40" width="18" height="40" rx="6" fill="#e05a2b"/>
+          <rect x="-7" y="-47" width="14" height="9" rx="4" fill="#a03010"/>
+          <rect x="-9" y="-22" width="18" height="6" fill="#fff" opacity=".35"/>
+        </g>
+        <g transform="translate(898,112)">
+          <rect x="-9" y="-40" width="18" height="40" rx="6" fill="#4db8b8"/>
+          <rect x="-7" y="-47" width="14" height="9" rx="4" fill="#2d8888"/>
+          <rect x="-9" y="-22" width="18" height="6" fill="#fff" opacity=".35"/>
+        </g>
+        <g transform="translate(922,106)">
+          <rect x="-9" y="-40" width="18" height="40" rx="6" fill="#c0392b"/>
+          <rect x="-7" y="-47" width="14" height="9" rx="4" fill="#8a2020"/>
+          <rect x="-9" y="-22" width="18" height="6" fill="#fff" opacity=".35"/>
+        </g>
+
+      </svg>
     </div>
-    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(45,122,79,.08);border:1.5px solid rgba(45,122,79,.3);border-radius:8px;padding:8px 16px;margin-bottom:1.25rem;font-size:13px;font-weight:600;color:var(--green)">
-      📲 Self-scoring tournament — teams submit their own scores after each match
+
+    <!-- Text content over illustration -->
+    <div style="position:relative;z-index:1;padding:2.5rem 1.25rem 2rem;text-align:center">
+      <div class="hero-pill" style="background:rgba(255,255,255,.9);border-color:rgba(255,255,255,.6);color:#1c1c1a">🏆 TOURNAMENT 2026</div>
+      <h1 style="color:#1c1c1a;text-shadow:0 1px 16px rgba(255,255,255,.85)">DREAMPLAY<br>PICKLEBALL</h1>
+      <div class="hero-sub" style="color:#2a2a28;font-weight:600;text-shadow:0 1px 8px rgba(255,255,255,.9)">7th Floor Pickle Court · 21–25 April 2026</div>
+      <div class="hero-stats" style="margin-bottom:1.25rem">
+        <div><div class="hstat-v" style="color:#1c1c1a;text-shadow:0 1px 10px rgba(255,255,255,.8)">39</div><div class="hstat-l" style="color:#3a3a38;font-weight:700">Teams</div></div>
+        <div><div class="hstat-v" style="color:#1c1c1a;text-shadow:0 1px 10px rgba(255,255,255,.8)">2</div><div class="hstat-l" style="color:#3a3a38;font-weight:700">Categories</div></div>
+        <div><div class="hstat-v" style="color:#1c1c1a;text-shadow:0 1px 10px rgba(255,255,255,.8)">5</div><div class="hstat-l" style="color:#3a3a38;font-weight:700">Days</div></div>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.88);border:1.5px solid rgba(45,122,79,.45);border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;color:#1a4f30">
+        📲 Self-scoring tournament — teams submit their own scores after each match
+      </div>
     </div>
+  </div><!-- end hero-top -->
+
+  <!-- Cards and info strip — plain background, no illustration -->
+  <div style="text-align:center">
     <div class="home-cards">
       <div class="hcard" onclick="nav('teams')">
         <div class="hcard-icon">👥</div>
@@ -451,11 +665,9 @@ nav{position:sticky;top:0;z-index:100;background:#1c1c1a;border-bottom:1px solid
       <div class="info-cell"><div class="info-label">Friday 🏆</div><div class="info-val">QF → SF → Final · from 11:30 AM</div></div>
       <div class="info-cell"><div class="info-label">Format</div><div class="info-val">1 Game to 15 · Win by 2 · Cap 17</div></div>
       <div class="info-cell"><div class="info-label">Venue</div><div class="info-val">7th Floor Pickle Court</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- TEAMS -->
+    </div><!-- end info-strip -->
+  </div><!-- end cards wrapper -->
+</div><!-- end page-home -->
 <div id="page-teams" class="page">
   <div class="page-hdr">
     <div class="page-title">TEAMS</div>
@@ -602,16 +814,6 @@ nav{position:sticky;top:0;z-index:100;background:#1c1c1a;border-bottom:1px solid
     <div class="saving-txt" id="saving-txt">Saving to Firebase…</div>
     <div id="score-history-container" style="display:none"></div>
 
-    <!-- Admin override section -->
-    <div class="admin-section" id="admin-section" style="display:none">
-      <div class="admin-label">⚙ ADMIN — OVERRIDE WINNER</div>
-      <div class="admin-override">
-        <select id="admin-winner-select">
-          <option value="">— Select winner —</option>
-        </select>
-        <button onclick="adminOverride()">Override</button>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -748,7 +950,6 @@ let catFilter = 'all';
 let dayFilter = 'all';
 let ptCat = 'Beginner';
 let brCat = 'Beginner';
-let isAdmin = false;
 let currentCode = null;
 let openTeamPanel = null; // {cat, group, team}
 
@@ -824,12 +1025,6 @@ window.addEventListener('DOMContentLoaded', () => {
     nav(id, false);
   } catch(e) { nav('home', false); }
 });
-
-function toggleAdmin() {
-  isAdmin = !isAdmin;
-  document.getElementById('admin-toggle').classList.toggle('on', isAdmin);
-  toast(isAdmin ? '⚙ Admin mode ON' : 'Admin mode OFF');
-}
 
 function refresh() {
   const active = document.querySelector('.page.on')?.id?.replace('page-','');
@@ -1099,14 +1294,6 @@ function openModal(code) {
     btn.style.opacity = '1';
   }
 
-  // Admin override
-  const adminSec = document.getElementById('admin-section');
-  adminSec.style.display = isAdmin ? 'block' : 'none';
-  if (isAdmin) {
-    const sel = document.getElementById('admin-winner-select');
-    sel.innerHTML = `<option value="">— Select winner —</option><option value="${m.ta}">${m.ta}</option><option value="${m.tb}">${m.tb}</option>`;
-    if (sc?.winner) sel.value = sc.winner;
-  }
   document.getElementById('score-modal').classList.add('on');
 }
 
@@ -1230,20 +1417,6 @@ async function submitScore() {
     document.getElementById('modal-submit-btn').disabled = false;
     document.getElementById('saving-txt').classList.remove('on');
   }
-}
-
-async function adminOverride() {
-  const code = currentCode;
-  const m = MATCHES.find(x => x.code === code);
-  const winner = document.getElementById('admin-winner-select').value;
-  if (!winner) { alert('Select a winner first'); return; }
-  const existing = scores[code] || {s1a:0,s1b:0,s2a:0,s2b:0,s3a:0,s3b:0,winsA:0,winsB:0};
-  const data = {...existing, winner, adminOverride: true, submittedBy: 'Admin', ts: Date.now()};
-  if (window._fbReady) await window._dbSet(`scores/${code}`, data);
-  else scores[code] = data;
-  toast('⚙ Winner overridden!');
-  closeModal();
-  refresh();
 }
 
 // ════════════════════════════════════════
