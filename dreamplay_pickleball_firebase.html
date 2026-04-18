@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dreamplay Pickleball Tournament 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+     🔥 STEP 1: PASTE YOUR FIREBASE CONFIG HERE
+     Replace everything inside firebaseConfig = { ... }
+     with your own config from Firebase Console
+     ============================================================ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, set, onValue, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyDw2lAcWdK8-W0q9G3GfGD1ngIPpE1Zs-c",
+  authDomain: "symmetric-curve-426206-v6.firebaseapp.com",
+  databaseURL: "https://symmetric-curve-426206-v6-default-rtdb.firebaseio.com",
+  projectId: "symmetric-curve-426206-v6",
+  storageBucket: "symmetric-curve-426206-v6.firebasestorage.app",
+  messagingSenderId: "121986978112",
+  appId: "1:121986978112:web:0906af47173c75e9a26aa5",
+  measurementId: "G-QGW3VWCTRZ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // Expose DB functions to global scope
+  window._dbSet = (path, data) => set(ref(db, path), data);
+  window._dbListen = (path, cb) => onValue(ref(db, path), snap => cb(snap.val()));
+  window._dbGet = (path) => get(ref(db, path)).then(s => s.val());
+  window._dbReady = true;
+
+  // Signal app that Firebase is ready
+  window.dispatchEvent(new Event('firebase-ready'));
+</script>
+
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #13131a;
+  --surface2: #1c1c26;
+  --border: #2a2a3a;
+  --accent: #00e5a0;
+  --accent2: #7c6df0;
+  --amber: #f5a623;
+  --red: #ff4d6d;
+  --text: #f0f0f8;
+  --muted: #888899;
+  --dim: #44445a;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(0,229,160,0.07),transparent),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(124,109,240,0.05),transparent);pointer-events:none;z-index:0}
+
+/* FIREBASE STATUS BANNER */
+#fb-status{position:fixed;bottom:1rem;right:1rem;z-index:999;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;transition:all .3s}
+#fb-status.connecting{background:rgba(245,166,35,.15);border:1px solid var(--amber);color:var(--amber)}
+#fb-status.connected{background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.3);color:var(--accent)}
+#fb-status.error{background:rgba(255,77,109,.1);border:1px solid var(--red);color:var(--red)}
+.fb-dot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* CONFIG NOTICE */
+#config-notice{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:500;align-items:center;justify-content:center;padding:1.5rem}
+#config-notice.show{display:flex}
+.config-card{background:var(--surface);border:1px solid var(--amber);border-radius:16px;padding:2rem;max-width:520px;width:100%}
+.config-card h2{font-family:var(--font-display);font-size:28px;letter-spacing:2px;color:var(--amber);margin-bottom:.5rem}
+.config-card p{font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6}
+.config-card code{display:block;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem;font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:1rem;line-height:1.7;white-space:pre-wrap}
+.config-card button{background:var(--amber);color:#000;border:none;border-radius:8px;padding:8px 20px;font-weight:700;font-size:13px;cursor:pointer}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 1.5rem}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;height:56px;gap:0}
+.nav-logo{font-family:var(--font-display);font-size:22px;letter-spacing:2px;color:var(--accent);margin-right:2rem;white-space:nowrap}
+.nav-tabs{display:flex;gap:0;flex:1}
+.nav-tab{padding:0 1.25rem;height:56px;display:flex;align-items:center;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;letter-spacing:.04em}
+.nav-tab:hover{color:var(--text)}
+.nav-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+.hero{position:relative;z-index:1;padding:3rem 1.5rem 2rem;text-align:center;max-width:1200px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.08em;margin-bottom:1rem}
+.hero h1{font-family:var(--font-display);font-size:clamp(42px,8vw,80px);letter-spacing:4px;line-height:1;margin-bottom:.75rem;background:linear-gradient(135deg,#fff 30%,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:15px;color:var(--muted);margin-bottom:1.5rem}
+.hero-stats{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap}
+.hero-stat-val{font-family:var(--font-display);font-size:32px;letter-spacing:2px;color:var(--accent)}
+.hero-stat-label{font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+
+.page{display:none;position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:1.5rem}
+.page.active{display:block}
+
+.search-wrap{position:relative;margin-bottom:1.25rem}
+.search-wrap input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px 12px 44px;font-family:var(--font-body);font-size:14px;color:var(--text);outline:none;transition:border-color .2s}
+.search-wrap input:focus{border-color:var(--accent)}
+.search-wrap input::placeholder{color:var(--dim)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--dim)}
+
+.cat-tabs{display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap}
+.cat-tab{padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .2s}
+.cat-tab.active-all{background:rgba(0,229,160,.1);border-color:var(--accent);color:var(--accent)}
+.cat-tab.active-beg{background:rgba(59,130,246,.15);border-color:#3b82f6;color:#93c5fd}
+.cat-tab.active-int{background:rgba(124,109,240,.15);border-color:#7c6df0;color:#c4b5fd}
+
+.day-filter{display:flex;gap:6px;margin-bottom:1.25rem;flex-wrap:wrap}
+.day-btn{padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .2s;font-family:var(--font-mono)}
+.day-btn.active{background:rgba(0,229,160,.1);border-color:var(--accent);color:var(--accent)}
+
+.group-header{display:flex;align-items:center;gap:10px;padding:.75rem 0 .4rem;margin-top:.75rem}
+.group-badge{font-family:var(--font-display);font-size:16px;letter-spacing:2px;padding:2px 10px;border-radius:4px}
+.group-badge.beg{background:rgba(29,78,216,.2);color:#93c5fd;border:1px solid rgba(59,130,246,.3)}
+.group-badge.int{background:rgba(124,109,240,.2);color:#c4b5fd;border:1px solid rgba(124,109,240,.3)}
+.group-badge.ko{background:rgba(245,166,35,.2);color:#fcd34d;border:1px solid rgba(245,166,35,.3)}
+.group-label{font-size:11px;color:var(--muted);letter-spacing:.05em}
+
+.fixture-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem;margin-bottom:.6rem;transition:border-color .2s,transform .1s;cursor:pointer}
+.fixture-card:hover{border-color:var(--dim)}
+.fixture-card.constraint{border-left:3px solid var(--amber)}
+.fixture-card.scored{border-left:3px solid var(--accent)}
+.fixture-card.ko-card{border-left:3px solid var(--amber)}
+.fixture-card.final-card{border-left:3px solid #fcd34d;background:rgba(252,211,77,.03)}
+.fixture-card.highlighted{background:rgba(0,229,160,.05);border-color:rgba(0,229,160,.35)}
+
+.fixture-meta{display:flex;gap:8px;align-items:center;margin-bottom:.6rem;flex-wrap:wrap}
+.fixture-code{font-family:var(--font-mono);font-size:11px;color:var(--muted);background:var(--surface2);padding:2px 7px;border-radius:4px}
+.fixture-time{font-size:11px;color:var(--muted);font-family:var(--font-mono)}
+.day-tag{font-size:10px;font-weight:600;letter-spacing:.08em;padding:2px 7px;border-radius:4px}
+.day-Mon{background:rgba(59,130,246,.1);color:#93c5fd}
+.day-Tue{background:rgba(16,185,129,.1);color:#6ee7b7}
+.day-Wed{background:rgba(245,166,35,.1);color:#fcd34d}
+.day-Thu{background:rgba(239,68,68,.1);color:#fca5a5}
+.day-Fri{background:rgba(124,109,240,.2);color:#c4b5fd}
+.stage-tag{font-size:10px;font-weight:600;letter-spacing:.05em;padding:2px 7px;border-radius:4px}
+.s-Group{background:rgba(100,100,120,.15);color:var(--muted)}
+.s-QF{background:rgba(245,166,35,.15);color:#fcd34d}
+.s-SF{background:rgba(0,229,160,.1);color:var(--accent)}
+.s-Final{background:rgba(252,211,77,.15);color:#fcd34d}
+.constraint-tag{font-size:10px;color:var(--amber);font-weight:500}
+.score-status{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px;margin-left:auto}
+.status-pending{background:rgba(100,100,120,.1);color:var(--dim)}
+.status-done{background:rgba(0,229,160,.08);color:var(--accent)}
+
+.fixture-teams{display:flex;align-items:center;gap:.75rem}
+.team-name{flex:1;font-size:13px;font-weight:500}
+.team-winner{color:var(--accent);font-weight:600}
+.team-loser{color:var(--muted)}
+.vs-badge{font-family:var(--font-display);font-size:14px;letter-spacing:2px;color:var(--dim);flex-shrink:0}
+
+.score-row{display:flex;align-items:center;gap:6px;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--border);flex-wrap:wrap}
+.set-chip{font-family:var(--font-mono);font-size:12px;color:var(--muted);background:var(--surface2);padding:2px 8px;border-radius:4px}
+.set-chip-win{color:var(--accent)}
+.score-btn{margin-left:auto;font-size:11px;font-weight:600;color:var(--accent);background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);border-radius:6px;padding:4px 10px;cursor:pointer;transition:all .2s}
+.score-btn:hover{background:rgba(0,229,160,.15)}
+.score-btn-edit{color:var(--muted);background:transparent;border-color:var(--border)}
+.winner-label{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--accent);padding:2px 7px;background:rgba(0,229,160,.1);border-radius:4px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;position:relative}
+.modal-close{position:absolute;top:1rem;right:1rem;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:4px 10px;font-size:12px;color:var(--muted);cursor:pointer}
+.modal-title{font-family:var(--font-display);font-size:24px;letter-spacing:2px;color:var(--accent);margin-bottom:.2rem}
+.modal-sub{font-size:12px;color:var(--muted);margin-bottom:1.25rem;font-family:var(--font-mono)}
+.modal-vs-row{display:flex;align-items:center;gap:.75rem;background:var(--surface2);border-radius:10px;padding:.75rem 1rem;margin-bottom:1.25rem}
+.modal-team{flex:1;font-size:13px;font-weight:500;text-align:center;line-height:1.3}
+.modal-vs{font-family:var(--font-display);font-size:18px;color:var(--dim);letter-spacing:2px;flex-shrink:0}
+.set-row{margin-bottom:.85rem}
+.set-label{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--muted);margin-bottom:.4rem;display:flex;align-items:center;gap:6px}
+.set-label span{background:var(--surface2);padding:2px 7px;border-radius:4px;font-family:var(--font-mono);color:var(--accent);font-size:10px}
+.set-inputs{display:flex;align-items:center;gap:.5rem}
+.set-inputs input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;font-family:var(--font-mono);font-size:18px;color:var(--text);text-align:center;outline:none;transition:border-color .2s}
+.set-inputs input:focus{border-color:var(--accent)}
+.set-sep{font-family:var(--font-display);font-size:20px;color:var(--dim)}
+.submit-btn{width:100%;background:var(--accent);color:#000;border:none;border-radius:10px;padding:13px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;margin-top:.5rem;letter-spacing:.04em;transition:opacity .2s}
+.submit-btn:hover{opacity:.9}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed}
+.saving-indicator{display:none;text-align:center;font-size:12px;color:var(--muted);margin-top:.5rem}
+.saving-indicator.show{display:block}
+
+/* LEADERBOARD */
+.lb-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.lb-title{font-family:var(--font-display);font-size:28px;letter-spacing:3px}
+.lb-cat-tabs{display:flex;gap:6px}
+.lb-tab{padding:5px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .2s}
+.lb-tab.active{background:rgba(0,229,160,.1);border-color:var(--accent);color:var(--accent)}
+.lb-group-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1.25rem}
+.lb-group-title{padding:.75rem 1rem;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.lb-table{width:100%;border-collapse:collapse;font-size:13px}
+.lb-table th{padding:8px 12px;text-align:center;font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border)}
+.lb-table th:nth-child(2){text-align:left}
+.lb-table td{padding:10px 12px;border-bottom:1px solid rgba(42,42,58,.5);text-align:center;font-family:var(--font-mono);font-size:12px;vertical-align:middle}
+.lb-table td:nth-child(2){text-align:left;font-family:var(--font-body)}
+.lb-table tr:last-child td{border-bottom:none}
+.lb-table tr:hover td{background:rgba(255,255,255,.02)}
+.rank-num{font-family:var(--font-display);font-size:20px;letter-spacing:1px;color:var(--dim)}
+.rank-1{color:#fcd34d}.rank-2{color:#d1d5db}.rank-3{color:#cd7c3a}
+.team-cell{font-weight:500;line-height:1.3}
+.team-cell small{font-size:11px;color:var(--muted);font-weight:400}
+.wins-cell{color:var(--accent);font-weight:600}
+.pts-cell{font-size:14px;font-weight:600}
+.advance-pill{background:rgba(0,229,160,.1);color:var(--accent);border:1px solid rgba(0,229,160,.2);border-radius:4px;font-size:10px;font-weight:700;padding:2px 6px;font-family:var(--font-body)}
+.dim-row td{opacity:.45}
+
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--muted)}
+.empty-icon{font-size:36px;margin-bottom:.75rem;opacity:.3}
+
+/* TOAST */
+#toast{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--accent);color:#000;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;pointer-events:none;z-index:999;white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:600px){
+  .fixture-teams{flex-direction:column;gap:.3rem;align-items:flex-start}
+  .vs-badge{align-self:center}
+  .nav-tab{padding:0 .75rem;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- Firebase status -->
+<div id="fb-status" class="connecting"><span class="fb-dot"></span><span id="fb-status-text">Connecting…</span></div>
+
+<!-- Config notice (shown if not configured) -->
+<div id="config-notice">
+  <div class="config-card">
+    <h2>⚙️ Setup Required</h2>
+    <p>Open this HTML file in a text editor and replace the Firebase config at the top of the file with your own config from Firebase Console. Follow the step-by-step guide below.</p>
+    <code>const firebaseConfig = {
+  apiKey: "your-api-key",
+  authDomain: "your-app.firebaseapp.com",
+  databaseURL: "https://your-app-default-rtdb.firebaseio.com",
+  projectId: "your-app",
+  storageBucket: "your-app.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123:web:abc"
+};</code>
+    <button onclick="document.getElementById('config-notice').classList.remove('show')">I'll configure it now</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">🏓 DP PICKLE</div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showPage('home')">Home</button>
+      <button class="nav-tab" onclick="showPage('fixtures')">Fixtures</button>
+      <button class="nav-tab" onclick="showPage('scoring')">Score Match</button>
+      <button class="nav-tab" onclick="showPage('leaderboard')">Leaderboard</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-badge">🏆 TOURNAMENT 2026</div>
+    <h1>DREAMPLAY PICKLEBALL</h1>
+    <div class="hero-sub">7th Floor Pickle Court · 21–25 April 2026</div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-val">32</div><div class="hero-stat-label">Teams</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">2</div><div class="hero-stat-label">Categories</div></div>
+      <div class="hero-stat"><div class="hero-stat-val" id="matches-scored-count">0</div><div class="hero-stat-label">Scored</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">5</div><div class="hero-stat-label">Days</div></div>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem 2rem;position:relative;z-index:1">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1rem">
+      <div onclick="showPage('fixtures')" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='#3b82f6'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:28px;margin-bottom:.6rem">📅</div>
+        <div style="font-family:var(--font-display);font-size:22px;letter-spacing:2px;margin-bottom:.35rem">FIXTURES</div>
+        <div style="font-size:13px;color:var(--muted)">Browse all matches. Search by player name.</div>
+      </div>
+      <div onclick="showPage('scoring')" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:28px;margin-bottom:.6rem">⚡</div>
+        <div style="font-family:var(--font-display);font-size:22px;letter-spacing:2px;margin-bottom:.35rem">SCORE MATCH</div>
+        <div style="font-size:13px;color:var(--muted)">Submit your score. 3 sets: 11, 7, 7 pts.</div>
+      </div>
+      <div onclick="showPage('leaderboard')" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='#fcd34d'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:28px;margin-bottom:.6rem">🏆</div>
+        <div style="font-family:var(--font-display);font-size:22px;letter-spacing:2px;margin-bottom:.35rem">LEADERBOARD</div>
+        <div style="font-size:13px;color:var(--muted)">Live standings. Top 2 per group advance.</div>
+      </div>
+    </div>
+    <div style="margin-top:1.25rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem">
+      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--muted);margin-bottom:.75rem">SCHEDULE OVERVIEW</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem">
+        <div style="background:var(--surface2);border-radius:8px;padding:.6rem .75rem"><div style="font-size:10px;color:var(--muted)">MON–THU</div><div style="font-size:12px;font-weight:500;margin-top:2px">Group Stage</div><div style="font-size:11px;color:var(--muted)">12 matches/day · 12:30–8:30 PM</div></div>
+        <div style="background:rgba(252,211,77,.05);border:1px solid rgba(252,211,77,.15);border-radius:8px;padding:.6rem .75rem"><div style="font-size:10px;color:#fcd34d">FRIDAY</div><div style="font-size:12px;font-weight:500;margin-top:2px">Finals Day 🏆</div><div style="font-size:11px;color:var(--muted)">QF → SF → Final · from 11:30 AM</div></div>
+        <div style="background:var(--surface2);border-radius:8px;padding:.6rem .75rem"><div style="font-size:10px;color:var(--muted)">FORMAT</div><div style="font-size:12px;font-weight:500;margin-top:2px">Best of 3 Sets</div><div style="font-size:11px;color:var(--muted)">11 · 7 · 7 points</div></div>
+        <div style="background:var(--surface2);border-radius:8px;padding:.6rem .75rem"><div style="font-size:10px;color:var(--muted)">VENUE</div><div style="font-size:12px;font-weight:500;margin-top:2px">7th Floor Pickle Court</div><div style="font-size:11px;color:var(--muted)">30 min · 10 min cooldown</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FIXTURES -->
+<div id="page-fixtures" class="page">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem">
+    <div style="font-family:var(--font-display);font-size:28px;letter-spacing:3px">FIXTURES</div>
+    <span id="fixture-count" style="font-size:12px;color:var(--muted)"></span>
+  </div>
+  <div class="search-wrap"><span class="search-icon">🔍</span><input type="text" id="player-search" placeholder="Search by player name…" oninput="renderFixtures()"></div>
+  <div class="cat-tabs">
+    <button class="cat-tab active-all" onclick="setCatFilter('all',this)">All</button>
+    <button class="cat-tab" onclick="setCatFilter('Beginner',this)">🔵 Beginner</button>
+    <button class="cat-tab" onclick="setCatFilter('Inter+Adv',this)">🟣 Inter + Advanced</button>
+  </div>
+  <div class="day-filter" id="day-btns"></div>
+  <div id="fixtures-list"></div>
+</div>
+
+<!-- SCORING -->
+<div id="page-scoring" class="page">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem">
+    <div style="font-family:var(--font-display);font-size:28px;letter-spacing:3px">SCORE MATCH</div>
+  </div>
+  <div class="search-wrap"><span class="search-icon">🔍</span><input type="text" id="score-search" placeholder="Type your name to find your match…" oninput="renderScoringList()"></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:1rem;padding:.6rem .75rem;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+    ℹ️ Any of the 4 players can submit scores. Set 1 max 11 pts · Sets 2 & 3 max 7 pts each. Winner = most sets won.
+  </div>
+  <div id="scoring-list"></div>
+</div>
+
+<!-- LEADERBOARD -->
+<div id="page-leaderboard" class="page">
+  <div class="lb-header">
+    <div class="lb-title">LEADERBOARD</div>
+    <div class="lb-cat-tabs">
+      <button class="lb-tab active" onclick="setLbCat('Beginner',this)">🔵 Beginner</button>
+      <button class="lb-tab" onclick="setLbCat('Inter+Adv',this)">🟣 Inter+Adv</button>
+    </div>
+  </div>
+  <div id="lb-content"></div>
+</div>
+
+<!-- SCORE MODAL -->
+<div class="modal-overlay" id="score-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">SCORE MATCH</div>
+    <div class="modal-sub" id="modal-sub"></div>
+    <div class="modal-vs-row">
+      <div class="modal-team" id="modal-ta"></div>
+      <div class="modal-vs">VS</div>
+      <div class="modal-team" id="modal-tb"></div>
+    </div>
+    <div class="set-row">
+      <div class="set-label">Set 1 <span>max 11 pts</span></div>
+      <div class="set-inputs"><input type="number" id="s1a" min="0" max="11" placeholder="0"><span class="set-sep">–</span><input type="number" id="s1b" min="0" max="11" placeholder="0"></div>
+    </div>
+    <div class="set-row">
+      <div class="set-label">Set 2 <span>max 7 pts</span></div>
+      <div class="set-inputs"><input type="number" id="s2a" min="0" max="7" placeholder="0"><span class="set-sep">–</span><input type="number" id="s2b" min="0" max="7" placeholder="0"></div>
+    </div>
+    <div class="set-row">
+      <div class="set-label">Set 3 <span>max 7 pts</span></div>
+      <div class="set-inputs"><input type="number" id="s3a" min="0" max="7" placeholder="0"><span class="set-sep">–</span><input type="number" id="s3b" min="0" max="7" placeholder="0"></div>
+    </div>
+    <button class="submit-btn" id="submit-btn" onclick="submitScore()">SUBMIT SCORE</button>
+    <div class="saving-indicator" id="saving-indicator">⏳ Saving to Firebase…</div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// MATCH DATA
+// ══════════════════════════════════════════════════════════
+const MATCHES = [
+  {code:"GA1",cat:"Beginner",group:"A",day:"Mon",time:"12:30–01:00 PM",ta:"Pragati Ranjan & Anshuman Singh",tb:"Jay Gosalia & sohith",stage:"Group Stage"},
+  {code:"GA2",cat:"Beginner",group:"A",day:"Mon",time:"01:10–01:40 PM",ta:"Rohan Pawar & Anuj Dhanger",tb:"Rishabh Surana & Nishant Parmar",stage:"Group Stage"},
+  {code:"GB1",cat:"Beginner",group:"B",day:"Mon",time:"01:50–02:20 PM",ta:"Abhishek Kumar & Jimit Shah",tb:"Devendra Patidar & Rhea Adhikari",stage:"Group Stage"},
+  {code:"GB2",cat:"Beginner",group:"B",day:"Mon",time:"02:30–03:00 PM",ta:"Osim Abes & Samarth Ladia",tb:"Aditya Singh Jadon & Salim Bhalerao",stage:"Group Stage"},
+  {code:"GC1",cat:"Beginner",group:"C",day:"Mon",time:"03:10–03:40 PM",ta:"Indhranath Sri Ram & Shivam Tiwari",tb:"Fenil Kanjani & Sumit Kumar",stage:"Group Stage"},
+  {code:"GC2",cat:"Beginner",group:"C",day:"Mon",time:"03:50–04:20 PM",ta:"Parita Kapadia & Bipin Podar",tb:"Nishieth Babu & Sumit Pandey",stage:"Group Stage"},
+  {code:"GD3i",cat:"Inter+Adv",group:"D",day:"Mon",time:"04:30–05:00 PM",ta:"Chandni Padikkal & Siddharth Modha",tb:"Siddharth Suchak & Dharmveer Baloda",stage:"Group Stage",constraint:"Siddharth – no Tue"},
+  {code:"GD5i",cat:"Inter+Adv",group:"D",day:"Mon",time:"05:10–05:40 PM",ta:"Aditya Choudhary & Priyanshu Vaya",tb:"Siddharth Suchak & Dharmveer Baloda",stage:"Group Stage",constraint:"Siddharth – no Tue"},
+  {code:"GD6i",cat:"Inter+Adv",group:"D",day:"Mon",time:"05:50–06:20 PM",ta:"Rahul Prasad & Indresh Pal",tb:"Siddharth Suchak & Dharmveer Baloda",stage:"Group Stage",constraint:"Siddharth – no Tue"},
+  {code:"GD1i",cat:"Inter+Adv",group:"D",day:"Mon",time:"06:30–07:00 PM",ta:"Chandni Padikkal & Siddharth Modha",tb:"Aditya Choudhary & Priyanshu Vaya",stage:"Group Stage"},
+  {code:"GD2i",cat:"Inter+Adv",group:"D",day:"Mon",time:"07:10–07:40 PM",ta:"Chandni Padikkal & Siddharth Modha",tb:"Rahul Prasad & Indresh Pal",stage:"Group Stage"},
+  {code:"GD4i",cat:"Inter+Adv",group:"D",day:"Mon",time:"07:50–08:20 PM",ta:"Aditya Choudhary & Priyanshu Vaya",tb:"Rahul Prasad & Indresh Pal",stage:"Group Stage"},
+  {code:"GA3",cat:"Beginner",group:"A",day:"Tue",time:"12:30–01:00 PM",ta:"Pragati Ranjan & Anshuman Singh",tb:"Rohan Pawar & Anuj Dhanger",stage:"Group Stage"},
+  {code:"GA4",cat:"Beginner",group:"A",day:"Tue",time:"01:10–01:40 PM",ta:"Pragati Ranjan & Anshuman Singh",tb:"Rishabh Surana & Nishant Parmar",stage:"Group Stage"},
+  {code:"GA5",cat:"Beginner",group:"A",day:"Tue",time:"01:50–02:20 PM",ta:"Jay Gosalia & sohith",tb:"Rohan Pawar & Anuj Dhanger",stage:"Group Stage"},
+  {code:"GA6",cat:"Beginner",group:"A",day:"Tue",time:"02:30–03:00 PM",ta:"Jay Gosalia & sohith",tb:"Rishabh Surana & Nishant Parmar",stage:"Group Stage"},
+  {code:"GB3",cat:"Beginner",group:"B",day:"Tue",time:"03:10–03:40 PM",ta:"Abhishek Kumar & Jimit Shah",tb:"Osim Abes & Samarth Ladia",stage:"Group Stage"},
+  {code:"GB4",cat:"Beginner",group:"B",day:"Tue",time:"03:50–04:20 PM",ta:"Abhishek Kumar & Jimit Shah",tb:"Aditya Singh Jadon & Salim Bhalerao",stage:"Group Stage"},
+  {code:"GB5",cat:"Beginner",group:"B",day:"Tue",time:"04:30–05:00 PM",ta:"Devendra Patidar & Rhea Adhikari",tb:"Osim Abes & Samarth Ladia",stage:"Group Stage"},
+  {code:"GB6",cat:"Beginner",group:"B",day:"Tue",time:"05:10–05:40 PM",ta:"Devendra Patidar & Rhea Adhikari",tb:"Aditya Singh Jadon & Salim Bhalerao",stage:"Group Stage"},
+  {code:"GC3",cat:"Beginner",group:"C",day:"Tue",time:"05:50–06:20 PM",ta:"Indhranath Sri Ram & Shivam Tiwari",tb:"Parita Kapadia & Bipin Podar",stage:"Group Stage"},
+  {code:"GC4",cat:"Beginner",group:"C",day:"Tue",time:"06:30–07:00 PM",ta:"Indhranath Sri Ram & Shivam Tiwari",tb:"Nishieth Babu & Sumit Pandey",stage:"Group Stage"},
+  {code:"GA_x",cat:"Beginner",group:"A",day:"Tue",time:"07:10–07:40 PM",ta:"Rohan Pawar & Anuj Dhanger",tb:"Rishabh Surana & Nishant Parmar",stage:"Group Stage"},
+  {code:"IA1",cat:"Inter+Adv",group:"A",day:"Tue",time:"07:50–08:20 PM",ta:"Nihar Vira & Arif",tb:"Jinay Parekh & Gaurang Jadav",stage:"Group Stage"},
+  {code:"IA3",cat:"Inter+Adv",group:"A",day:"Wed",time:"12:30–01:00 PM",ta:"Nihar Vira & Arif",tb:"Akash Sanan & Keerthi Ganesh",stage:"Group Stage",constraint:"Sesha – post 5:30 PM"},
+  {code:"IA5",cat:"Inter+Adv",group:"A",day:"Wed",time:"01:10–01:40 PM",ta:"Jinay Parekh & Gaurang Jadav",tb:"Akash Sanan & Keerthi Ganesh",stage:"Group Stage",constraint:"Sesha – post 5:30 PM"},
+  {code:"IA6",cat:"Inter+Adv",group:"A",day:"Wed",time:"01:50–02:20 PM",ta:"Hitesh Kapoor & Anupam Agrawal",tb:"Akash Sanan & Keerthi Ganesh",stage:"Group Stage",constraint:"Sesha – post 5:30 PM"},
+  {code:"IB3",cat:"Inter+Adv",group:"B",day:"Wed",time:"02:30–03:00 PM",ta:"Saieesh Patil & Shreya Shobhane",tb:"Pankaj Pandey & Koushik Akula",stage:"Group Stage",constraint:"Sesha – post 5:30 PM"},
+  {code:"IB5",cat:"Inter+Adv",group:"B",day:"Wed",time:"03:10–03:40 PM",ta:"Abhinn Kothari & Dheeraj",tb:"Pankaj Pandey & Koushik Akula",stage:"Group Stage",constraint:"Sesha – post 5:30 PM"},
+  {code:"IB6",cat:"Inter+Adv",group:"B",day:"Wed",time:"03:50–04:20 PM",ta:"Bhavit Sheth & Vinayak Gupta",tb:"Pankaj Pandey & Koushik Akula",stage:"Group Stage",constraint:"Sesha – post 5:30 PM"},
+  {code:"IA2",cat:"Inter+Adv",group:"A",day:"Wed",time:"04:30–05:00 PM",ta:"Nihar Vira & Arif",tb:"Hitesh Kapoor & Anupam Agrawal",stage:"Group Stage",constraint:"Hitesh – no Mon"},
+  {code:"IA4",cat:"Inter+Adv",group:"A",day:"Wed",time:"05:10–05:40 PM",ta:"Jinay Parekh & Gaurang Jadav",tb:"Hitesh Kapoor & Anupam Agrawal",stage:"Group Stage",constraint:"Hitesh – no Mon"},
+  {code:"GC5",cat:"Beginner",group:"C",day:"Wed",time:"05:50–06:20 PM",ta:"Fenil Kanjani & Sumit Kumar",tb:"Parita Kapadia & Bipin Podar",stage:"Group Stage"},
+  {code:"GC6",cat:"Beginner",group:"C",day:"Wed",time:"06:30–07:00 PM",ta:"Fenil Kanjani & Sumit Kumar",tb:"Nishieth Babu & Sumit Pandey",stage:"Group Stage"},
+  {code:"IC1",cat:"Inter+Adv",group:"C",day:"Wed",time:"07:10–07:40 PM",ta:"Swapnesh Kumar & Sarthak Mittal",tb:"Sahil Parsekar & Yash Shah",stage:"Group Stage"},
+  {code:"IC2",cat:"Inter+Adv",group:"C",day:"Wed",time:"07:50–08:20 PM",ta:"Swapnesh Kumar & Sarthak Mittal",tb:"Sayan Chakraborty & Madhur Mittal",stage:"Group Stage"},
+  {code:"IC3",cat:"Inter+Adv",group:"C",day:"Thu",time:"12:30–01:00 PM",ta:"Swapnesh Kumar & Sarthak Mittal",tb:"Manjeet Yadav & Sachin Nayak",stage:"Group Stage"},
+  {code:"IC4",cat:"Inter+Adv",group:"C",day:"Thu",time:"01:10–01:40 PM",ta:"Sahil Parsekar & Yash Shah",tb:"Sayan Chakraborty & Madhur Mittal",stage:"Group Stage"},
+  {code:"IC5",cat:"Inter+Adv",group:"C",day:"Thu",time:"01:50–02:20 PM",ta:"Sahil Parsekar & Yash Shah",tb:"Manjeet Yadav & Sachin Nayak",stage:"Group Stage"},
+  {code:"IC6",cat:"Inter+Adv",group:"C",day:"Thu",time:"02:30–03:00 PM",ta:"Sayan Chakraborty & Madhur Mittal",tb:"Manjeet Yadav & Sachin Nayak",stage:"Group Stage"},
+  {code:"IB1",cat:"Inter+Adv",group:"B",day:"Thu",time:"03:10–03:40 PM",ta:"Saieesh Patil & Shreya Shobhane",tb:"Abhinn Kothari & Dheeraj",stage:"Group Stage"},
+  {code:"IB2",cat:"Inter+Adv",group:"B",day:"Thu",time:"03:50–04:20 PM",ta:"Saieesh Patil & Shreya Shobhane",tb:"Bhavit Sheth & Vinayak Gupta",stage:"Group Stage"},
+  {code:"IB4",cat:"Inter+Adv",group:"B",day:"Thu",time:"04:30–05:00 PM",ta:"Abhinn Kothari & Dheeraj",tb:"Bhavit Sheth & Vinayak Gupta",stage:"Group Stage"},
+  {code:"GD1b",cat:"Beginner",group:"D",day:"Thu",time:"05:10–05:40 PM",ta:"Prabhat Kumar Jha & Kartavya Kothari",tb:"Aditya Narisetty & Animesh Sahoo",stage:"Group Stage"},
+  {code:"GD2b",cat:"Beginner",group:"D",day:"Thu",time:"05:50–06:20 PM",ta:"Prabhat Kumar Jha & Kartavya Kothari",tb:"Bhanvi Kumar & Harshank Karia",stage:"Group Stage"},
+  {code:"GD3b",cat:"Beginner",group:"D",day:"Thu",time:"06:30–07:00 PM",ta:"Prabhat Kumar Jha & Kartavya Kothari",tb:"Aniket Raj & Bhushan Thorve",stage:"Group Stage"},
+  {code:"GD4b",cat:"Beginner",group:"D",day:"Thu",time:"07:10–07:40 PM",ta:"Aditya Narisetty & Animesh Sahoo",tb:"Bhanvi Kumar & Harshank Karia",stage:"Group Stage"},
+  {code:"GD5b",cat:"Beginner",group:"D",day:"Thu",time:"07:50–08:20 PM",ta:"Aditya Narisetty & Animesh Sahoo",tb:"Aniket Raj & Bhushan Thorve",stage:"Group Stage"},
+  {code:"BQF1",cat:"Beginner",group:"QF",day:"Fri",time:"11:30 AM–12:00 PM",ta:"1st – Group A",tb:"2nd – Group B",stage:"Quarter Final"},
+  {code:"IQF1",cat:"Inter+Adv",group:"QF",day:"Fri",time:"12:10–12:40 PM",ta:"1st – Group A",tb:"2nd – Group B",stage:"Quarter Final"},
+  {code:"BQF2",cat:"Beginner",group:"QF",day:"Fri",time:"12:50–01:20 PM",ta:"1st – Group B",tb:"2nd – Group A",stage:"Quarter Final"},
+  {code:"IQF2",cat:"Inter+Adv",group:"QF",day:"Fri",time:"01:30–02:00 PM",ta:"1st – Group B",tb:"2nd – Group A",stage:"Quarter Final"},
+  {code:"BQF3",cat:"Beginner",group:"QF",day:"Fri",time:"02:10–02:40 PM",ta:"1st – Group C",tb:"2nd – Group D",stage:"Quarter Final"},
+  {code:"IQF3",cat:"Inter+Adv",group:"QF",day:"Fri",time:"02:50–03:20 PM",ta:"1st – Group C",tb:"2nd – Group D",stage:"Quarter Final"},
+  {code:"BQF4",cat:"Beginner",group:"QF",day:"Fri",time:"03:30–04:00 PM",ta:"1st – Group D",tb:"2nd – Group C",stage:"Quarter Final"},
+  {code:"IQF4",cat:"Inter+Adv",group:"QF",day:"Fri",time:"04:10–04:40 PM",ta:"1st – Group D",tb:"2nd – Group C",stage:"Quarter Final"},
+  {code:"BSF1",cat:"Beginner",group:"SF",day:"Fri",time:"04:50–05:20 PM",ta:"BQF1 Winner",tb:"BQF3 Winner",stage:"Semi Final"},
+  {code:"ISF1",cat:"Inter+Adv",group:"SF",day:"Fri",time:"05:30–06:00 PM",ta:"IQF1 Winner",tb:"IQF3 Winner",stage:"Semi Final"},
+  {code:"BSF2",cat:"Beginner",group:"SF",day:"Fri",time:"06:10–06:40 PM",ta:"BQF2 Winner",tb:"BQF4 Winner",stage:"Semi Final"},
+  {code:"ISF2",cat:"Inter+Adv",group:"SF",day:"Fri",time:"06:50–07:20 PM",ta:"IQF2 Winner",tb:"IQF4 Winner",stage:"Semi Final"},
+  {code:"BFINAL",cat:"Beginner",group:"Final",day:"Fri",time:"07:30–08:00 PM",ta:"BSF1 Winner",tb:"BSF2 Winner",stage:"Final"},
+  {code:"IFINAL",cat:"Inter+Adv",group:"Final",day:"Fri",time:"08:10–08:40 PM",ta:"ISF1 Winner",tb:"ISF2 Winner",stage:"Final"},
+];
+
+const TEAMS = {
+  Beginner:{A:["Pragati Ranjan & Anshuman Singh","Jay Gosalia & sohith","Rohan Pawar & Anuj Dhanger","Rishabh Surana & Nishant Parmar"],B:["Abhishek Kumar & Jimit Shah","Devendra Patidar & Rhea Adhikari","Osim Abes & Samarth Ladia","Aditya Singh Jadon & Salim Bhalerao"],C:["Indhranath Sri Ram & Shivam Tiwari","Fenil Kanjani & Sumit Kumar","Parita Kapadia & Bipin Podar","Nishieth Babu & Sumit Pandey"],D:["Prabhat Kumar Jha & Kartavya Kothari","Aditya Narisetty & Animesh Sahoo","Bhanvi Kumar & Harshank Karia","Aniket Raj & Bhushan Thorve"]},
+  "Inter+Adv":{A:["Nihar Vira & Arif","Jinay Parekh & Gaurang Jadav","Hitesh Kapoor & Anupam Agrawal","Akash Sanan & Keerthi Ganesh"],B:["Saieesh Patil & Shreya Shobhane","Abhinn Kothari & Dheeraj","Bhavit Sheth & Vinayak Gupta","Pankaj Pandey & Koushik Akula"],C:["Swapnesh Kumar & Sarthak Mittal","Sahil Parsekar & Yash Shah","Sayan Chakraborty & Madhur Mittal","Manjeet Yadav & Sachin Nayak"],D:["Chandni Padikkal & Siddharth Modha","Aditya Choudhary & Priyanshu Vaya","Rahul Prasad & Indresh Pal","Siddharth Suchak & Dharmveer Baloda"]}
+};
+
+// ══════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════
+let scores = {};      // { matchCode: {s1a,s1b,...,winsA,winsB,winner} }
+let catFilter = 'all';
+let dayFilter = 'all';
+let lbCat = 'Beginner';
+let currentCode = null;
+let fbReady = false;
+
+// ══════════════════════════════════════════════════════════
+// FIREBASE
+// ══════════════════════════════════════════════════════════
+function initFirebase() {
+  fbReady = true;
+  document.getElementById('fb-status').className = 'connected';
+  document.getElementById('fb-status-text').textContent = 'Live';
+
+  // Listen to all scores in real-time
+  window._dbListen('scores', data => {
+    scores = data || {};
+    // Update home scored count
+    document.getElementById('matches-scored-count').textContent = Object.keys(scores).length;
+    // Refresh active page
+    const active = document.querySelector('.page.active').id.replace('page-','');
+    if(active==='fixtures') renderFixtures();
+    if(active==='scoring') renderScoringList();
+    if(active==='leaderboard') renderLeaderboard();
+  });
+}
+
+window.addEventListener('firebase-ready', initFirebase);
+
+// Check if config is still placeholder
+setTimeout(()=>{
+  if(!fbReady){
+    document.getElementById('fb-status').className='error';
+    document.getElementById('fb-status-text').textContent='Firebase not configured';
+    document.getElementById('config-notice').classList.add('show');
+  }
+}, 3000);
+
+// ══════════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════════
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const labels={home:'Home',fixtures:'Fixture',scoring:'Score',leaderboard:'Leaderboard'};
+  document.querySelectorAll('.nav-tab').forEach(t=>{ if(t.textContent.trim()===labels[id]) t.classList.add('active'); });
+  if(id==='fixtures') renderFixtures();
+  if(id==='scoring') renderScoringList();
+  if(id==='leaderboard') renderLeaderboard();
+}
+
+// ══════════════════════════════════════════════════════════
+// FIXTURES
+// ══════════════════════════════════════════════════════════
+function setCatFilter(cat,btn){
+  catFilter=cat;
+  document.querySelectorAll('.cat-tab').forEach(b=>b.className='cat-tab');
+  if(cat==='all') btn.className='cat-tab active-all';
+  else if(cat==='Beginner') btn.className='cat-tab active-beg';
+  else btn.className='cat-tab active-int';
+  renderFixtures();
+}
+
+function renderDayBtns(){
+  const days=['all','Mon','Tue','Wed','Thu','Fri'];
+  const labels={all:'All',Mon:'Mon 21',Tue:'Tue 22',Wed:'Wed 23',Thu:'Thu 24',Fri:'Fri 25 🏆'};
+  document.getElementById('day-btns').innerHTML=days.map(d=>`<button class="day-btn${dayFilter===d?' active':''}" onclick="setDayFilter('${d}',this)">${labels[d]}</button>`).join('');
+}
+
+function setDayFilter(d,btn){
+  dayFilter=d;
+  document.querySelectorAll('.day-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFixtures();
+}
+
+function getFiltered(searchId='player-search'){
+  const q=(document.getElementById(searchId)?.value||'').toLowerCase().trim();
+  return MATCHES.filter(m=>{
+    const catOk=catFilter==='all'||m.cat===catFilter;
+    const dayOk=dayFilter==='all'||m.day===dayFilter;
+    const qOk=!q||m.ta.toLowerCase().includes(q)||m.tb.toLowerCase().includes(q)||m.code.toLowerCase().includes(q);
+    return catOk&&dayOk&&qOk;
+  });
+}
+
+function stageKey(s){ return s==='Quarter Final'?'QF':s==='Semi Final'?'SF':s==='Final'?'Final':s==='3rd Place'?'3rd':'Group'; }
+
+function matchCardHTML(m, highlight=false){
+  const sc = scores[m.code];
+  const isKO = ['Quarter Final','Semi Final','Final'].includes(m.stage);
+  const isFinal = m.stage==='Final';
+  let cls='fixture-card';
+  if(isFinal) cls+=' final-card';
+  else if(isKO) cls+=' ko-card';
+  if(m.constraint) cls+=' constraint';
+  if(sc) cls+=' scored';
+  if(highlight) cls+=' highlighted';
+
+  const wA=sc&&sc.winsA>sc.winsB?'team-winner':sc&&sc.winsB>sc.winsA?'team-loser':'';
+  const wB=sc&&sc.winsB>sc.winsA?'team-winner':sc&&sc.winsA>sc.winsB?'team-loser':'';
+
+  let scoreHTML='';
+  if(sc){
+    const setData=[[sc.s1a,sc.s1b],[sc.s2a,sc.s2b],[sc.s3a,sc.s3b]];
+    scoreHTML=setData.map(([a,b])=>{
+      const wA=a>b,wB=b>a;
+      return `<span class="set-chip${wA?' set-chip-win':''}">${a}</span><span style="color:var(--dim);font-size:10px;margin:0 2px">–</span><span class="set-chip${wB?' set-chip-win':''}">${b}</span>`;
+    }).join('<span style="color:var(--dim);margin:0 5px;font-size:11px">|</span>');
+    scoreHTML+=`<span class="winner-label">${sc.winner==='Draw'?'Draw':'W: '+sc.winner.split('&')[0].trim()}</span>`;
+  }
+
+  const editBtn=sc?`<button class="score-btn score-btn-edit" onclick="openModal('${m.code}');event.stopPropagation()">Edit</button>`
+    :`<button class="score-btn" onclick="openModal('${m.code}');event.stopPropagation()">+ Score</button>`;
+
+  return `<div class="${cls}" onclick="openModal('${m.code}')">
+    <div class="fixture-meta">
+      <span class="fixture-code">${m.code}</span>
+      <span class="day-tag day-${m.day}">${m.day}</span>
+      <span class="fixture-time">${m.time}</span>
+      <span class="stage-tag s-${stageKey(m.stage)}">${m.stage}</span>
+      ${m.constraint?`<span class="constraint-tag">⚡ ${m.constraint}</span>`:''}
+      <span class="score-status ${sc?'status-done':'status-pending'}">${sc?'✓ Scored':'Pending'}</span>
+    </div>
+    <div class="fixture-teams">
+      <span class="team-name ${wA}">${m.ta}</span>
+      <span class="vs-badge">VS</span>
+      <span class="team-name ${wB}">${m.tb}</span>
+    </div>
+    ${`<div class="score-row">${sc?scoreHTML:'<span style="font-size:11px;color:var(--dim)">No score yet</span>'}${editBtn}</div>`}
+  </div>`;
+}
+
+function renderFixtures(){
+  renderDayBtns();
+  const q=(document.getElementById('player-search')?.value||'').toLowerCase().trim();
+  const filtered=getFiltered('player-search');
+  document.getElementById('fixture-count').textContent=`${filtered.length} matches`;
+  if(!filtered.length){
+    document.getElementById('fixtures-list').innerHTML=`<div class="empty-state"><div class="empty-icon">🔍</div><p>No matches found</p></div>`;
+    return;
+  }
+  const dayOrder=['Mon','Tue','Wed','Thu','Fri'];
+  const dayNames={Mon:'Monday 21 Apr',Tue:'Tuesday 22 Apr',Wed:'Wednesday 23 Apr',Thu:'Thursday 24 Apr',Fri:'Friday 25 Apr 🏆'};
+  let html='';
+  dayOrder.forEach(day=>{
+    const dayMs=filtered.filter(m=>m.day===day);
+    if(!dayMs.length) return;
+    html+=`<div style="font-family:var(--font-display);font-size:18px;letter-spacing:2px;color:var(--muted);padding:.75rem 0 .25rem;margin-top:.5rem;border-top:1px solid var(--border)">${dayNames[day]}</div>`;
+    const byGroup={};
+    dayMs.forEach(m=>{ const k=m.group||m.stage; if(!byGroup[k]) byGroup[k]=[]; byGroup[k].push(m); });
+    Object.entries(byGroup).forEach(([grp,ms])=>{
+      const isKO=['QF','SF','Final'].includes(grp);
+      const cat=ms[0].cat;
+      html+=`<div class="group-header"><span class="group-badge ${cat==='Beginner'?'beg':isKO?'ko':'int'}">${isKO?ms[0].stage:'GROUP '+grp}</span><span class="group-label">${cat} · ${ms.length} match${ms.length>1?'es':''}</span></div>`;
+      ms.forEach(m=>{ html+=matchCardHTML(m, q&&(m.ta.toLowerCase().includes(q)||m.tb.toLowerCase().includes(q))); });
+    });
+  });
+  document.getElementById('fixtures-list').innerHTML=html;
+}
+
+// ══════════════════════════════════════════════════════════
+// SCORING LIST
+// ══════════════════════════════════════════════════════════
+function renderScoringList(){
+  const q=(document.getElementById('score-search')?.value||'').toLowerCase().trim();
+  if(!q){
+    document.getElementById('scoring-list').innerHTML=`<div class="empty-state"><div class="empty-icon">⚡</div><p>Type your name above to find your match</p></div>`;
+    return;
+  }
+  const filtered=MATCHES.filter(m=>m.ta.toLowerCase().includes(q)||m.tb.toLowerCase().includes(q));
+  if(!filtered.length){
+    document.getElementById('scoring-list').innerHTML=`<div class="empty-state"><div class="empty-icon">🔍</div><p>No matches found for "${q}"</p></div>`;
+    return;
+  }
+  document.getElementById('scoring-list').innerHTML=filtered.map(m=>matchCardHTML(m,true)).join('');
+}
+
+// ══════════════════════════════════════════════════════════
+// MODAL
+// ══════════════════════════════════════════════════════════
+function openModal(code){
+  const m=MATCHES.find(x=>x.code===code);
+  if(!m) return;
+  currentCode=code;
+  document.getElementById('modal-sub').textContent=`${code} · ${m.day} · ${m.time}`;
+  document.getElementById('modal-ta').textContent=m.ta;
+  document.getElementById('modal-tb').textContent=m.tb;
+  const sc=scores[code];
+  ['s1a','s1b','s2a','s2b','s3a','s3b'].forEach(id=>{ document.getElementById(id).value=sc?sc[id]:''; });
+  document.getElementById('score-modal').classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('score-modal').classList.remove('open');
+  currentCode=null;
+}
+
+async function submitScore(){
+  const code=currentCode;
+  const m=MATCHES.find(x=>x.code===code);
+  const [s1a,s1b,s2a,s2b,s3a,s3b]=['s1a','s1b','s2a','s2b','s3a','s3b'].map(id=>parseInt(document.getElementById(id).value)||0);
+
+  if(s1a>11||s1b>11){alert('Set 1 max is 11!');return;}
+  if(s2a>7||s2b>7){alert('Set 2 max is 7!');return;}
+  if(s3a>7||s3b>7){alert('Set 3 max is 7!');return;}
+
+  const winsA=(s1a>s1b?1:0)+(s2a>s2b?1:0)+(s3a>s3b?1:0);
+  const winsB=(s1b>s1a?1:0)+(s2b>s2a?1:0)+(s3b>s3a?1:0);
+  const winner=winsA>winsB?m.ta:winsB>winsA?m.tb:'Draw';
+
+  const data={s1a,s1b,s2a,s2b,s3a,s3b,winsA,winsB,winner,ts:Date.now()};
+
+  if(fbReady){
+    document.getElementById('submit-btn').disabled=true;
+    document.getElementById('saving-indicator').classList.add('show');
+    try{
+      await window._dbSet(`scores/${code}`, data);
+      showToast('✓ Score saved!');
+      closeModal();
+    } catch(e){
+      alert('Error saving score. Check your Firebase config.');
+    } finally{
+      document.getElementById('submit-btn').disabled=false;
+      document.getElementById('saving-indicator').classList.remove('show');
+    }
+  } else {
+    scores[code]=data;
+    showToast('✓ Score saved (local only — Firebase not connected)');
+    closeModal();
+    renderFixtures();
+    renderScoringList();
+    renderLeaderboard();
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// LEADERBOARD
+// ══════════════════════════════════════════════════════════
+function setLbCat(cat,btn){
+  lbCat=cat;
+  document.querySelectorAll('.lb-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderLeaderboard();
+}
+
+function teamStats(team,cat){
+  const ms=MATCHES.filter(m=>m.cat===cat&&m.stage==='Group Stage'&&(m.ta===team||m.tb===team)&&scores[m.code]);
+  let w=0,l=0,pts=0,sw=0,sl=0,pf=0,pa=0;
+  ms.forEach(m=>{
+    const sc=scores[m.code];
+    const isA=m.ta===team;
+    const mw=isA?sc.winsA:sc.winsB, ow=isA?sc.winsB:sc.winsA;
+    if(mw>ow){w++;pts+=3;}else if(mw===ow){pts+=1;}else{l++;}
+    sw+=mw; sl+=ow;
+    const ms_=[sc.s1a,sc.s2a,sc.s3a], os_=[sc.s1b,sc.s2b,sc.s3b];
+    if(isA){ms_.forEach((s,i)=>{pf+=s;pa+=os_[i];});}
+    else{os_.forEach((s,i)=>{pf+=s;pa+=ms_[i];});}
+  });
+  return{team,played:ms.length,w,l,pts,sw,sl,pf,pa};
+}
+
+function renderLeaderboard(){
+  const groups=TEAMS[lbCat];
+  let html='';
+  Object.entries(groups).forEach(([grp,teams])=>{
+    const stats=teams.map(t=>teamStats(t,lbCat)).sort((a,b)=>b.pts-a.pts||(b.w-a.w)||(b.sw-b.sl)-(a.sw-a.sl)||(b.pf-b.pa)-(a.pf-a.pa));
+    html+=`<div class="lb-group-card">
+      <div class="lb-group-title">
+        <span class="group-badge ${lbCat==='Beginner'?'beg':'int'}" style="font-size:14px;padding:2px 8px">GROUP ${grp}</span>
+        <span style="font-size:11px;color:var(--muted)">Top 2 advance to QF</span>
+      </div>
+      <table class="lb-table">
+        <thead><tr><th>#</th><th>Team</th><th>P</th><th>W</th><th>L</th><th>Sets</th><th>+/-</th><th>PTS</th><th></th></tr></thead>
+        <tbody>${stats.map((s,i)=>{
+          const adv=i<2;
+          const [p1,p2]=(s.team||'').split(' & ');
+          const diff=s.pf-s.pa;
+          return `<tr class="${adv?'':'dim-row'}">
+            <td class="rank-num rank-${i+1}">${i+1}</td>
+            <td class="team-cell">${p1||''}<br><small>& ${p2||''}</small></td>
+            <td>${s.played}</td>
+            <td class="wins-cell">${s.w}</td>
+            <td style="color:var(--red)">${s.l}</td>
+            <td>${s.sw}-${s.sl}</td>
+            <td style="color:${diff>=0?'var(--accent)':'var(--red)'}">${diff>0?'+':''}${diff}</td>
+            <td class="pts-cell">${s.pts}</td>
+            <td>${adv?'<span class="advance-pill">↑ QF</span>':'—'}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>
+    </div>`;
+  });
+  document.getElementById('lb-content').innerHTML=html;
+}
+
+// ══════════════════════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════════════════════
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ══════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════
+renderDayBtns();
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+document.getElementById('score-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+</script>
+</body>
+</html>
