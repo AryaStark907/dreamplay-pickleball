@@ -341,7 +341,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-
       <div class="hcard" onclick="nav('points')" style="border-color:#1e1b4b">
         <div class="hcard-icon">📊</div>
         <div class="hcard-title" style="color:#c4b5fd">Points Table</div>
-        <div class="hcard-desc">Live group standings. Group winners + 3 wildcards advance to Quarter Finals.</div>
+        <div class="hcard-desc">Live group standings. Top team per group + next best 3 advance to Quarter Finals.</div>
       </div>
       <div class="hcard" onclick="nav('rules')" style="border-color:#1e3a1e">
         <div class="hcard-icon">📋</div>
@@ -434,13 +434,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-
       <div style="padding:1rem;font-size:13px;line-height:1.8;color:var(--text)">
         <p><strong>8 teams advance to QF from each category (Beginner & Inter+Adv):</strong></p>
         <ul style="margin-top:.4rem;padding-left:1.2rem;color:var(--muted)">
-          <li><strong>5 guaranteed spots</strong> — Top team (1st place) from each of the 5 groups advances automatically</li>
-          <li><strong>3 wildcard spots</strong> — The next 3 best teams across all groups (2nd place finishers and beyond) advance based on standings</li>
+          <li><strong>Top 5 teams</strong> — The 1st place team from each of the 5 groups advances directly to the Quarter Finals</li>
+          <li><strong>Next best 3</strong> — From all remaining teams across the 5 groups, the top 3 by standings also advance</li>
         </ul>
-        <p style="margin-top:.6rem;color:var(--muted)">Wildcard selection criteria (in order): Points → Wins → Set Difference → Points Difference. Final wildcard decisions may be made by the Dreamplay team.</p>
-        <div style="margin-top:.75rem;padding:.65rem .9rem;background:rgba(212,138,0,.08);border:1px solid rgba(212,138,0,.25);border-radius:8px;font-size:12px;color:#92600a">
-          🎯 <strong>Points System:</strong> Win = 3 pts · Draw = 1 pt · Loss = 0 pts
-        </div>
+        <p style="margin-top:.6rem;color:var(--muted)">Top 3 selection from remaining teams is decided by standings (Points → Wins → Points Difference) or by the Dreamplay team.</p>
       </div>
     </div>
 
@@ -592,14 +589,14 @@ const MATCHES = [
   {code:"IE3",cat:"Inter+Adv",group:"E",day:"Thu",time:"11:50 PM–12:20 AM",ta:"Parth Kapoor & Bhrigu Raj Das",tb:"Vishal Gala & Anudeep",stage:"Group Stage"},
 
   // FRIDAY KO
-  {code:"BQF1",cat:"Beginner",group:"QF",day:"Fri",time:"11:30 AM–12:00 PM",ta:"1st – Group A",tb:"Wildcard 1",stage:"Quarter Final"},
-  {code:"IQF1",cat:"Inter+Adv",group:"QF",day:"Fri",time:"12:10–12:40 PM",ta:"1st – Group A",tb:"Wildcard 1",stage:"Quarter Final"},
-  {code:"BQF2",cat:"Beginner",group:"QF",day:"Fri",time:"12:50–01:20 PM",ta:"1st – Group B",tb:"Wildcard 2",stage:"Quarter Final"},
-  {code:"IQF2",cat:"Inter+Adv",group:"QF",day:"Fri",time:"01:30–02:00 PM",ta:"1st – Group B",tb:"Wildcard 2",stage:"Quarter Final"},
+  {code:"BQF1",cat:"Beginner",group:"QF",day:"Fri",time:"11:30 AM–12:00 PM",ta:"1st – Group A",tb:"Next Best 1",stage:"Quarter Final"},
+  {code:"IQF1",cat:"Inter+Adv",group:"QF",day:"Fri",time:"12:10–12:40 PM",ta:"1st – Group A",tb:"Next Best 1",stage:"Quarter Final"},
+  {code:"BQF2",cat:"Beginner",group:"QF",day:"Fri",time:"12:50–01:20 PM",ta:"1st – Group B",tb:"Next Best 2",stage:"Quarter Final"},
+  {code:"IQF2",cat:"Inter+Adv",group:"QF",day:"Fri",time:"01:30–02:00 PM",ta:"1st – Group B",tb:"Next Best 2",stage:"Quarter Final"},
   {code:"BQF3",cat:"Beginner",group:"QF",day:"Fri",time:"02:10–02:40 PM",ta:"1st – Group C",tb:"1st – Group D",stage:"Quarter Final"},
   {code:"IQF3",cat:"Inter+Adv",group:"QF",day:"Fri",time:"02:50–03:20 PM",ta:"1st – Group C",tb:"1st – Group D",stage:"Quarter Final"},
-  {code:"BQF4",cat:"Beginner",group:"QF",day:"Fri",time:"03:30–04:00 PM",ta:"1st – Group E",tb:"Wildcard 3",stage:"Quarter Final"},
-  {code:"IQF4",cat:"Inter+Adv",group:"QF",day:"Fri",time:"04:10–04:40 PM",ta:"1st – Group E",tb:"Wildcard 3",stage:"Quarter Final"},
+  {code:"BQF4",cat:"Beginner",group:"QF",day:"Fri",time:"03:30–04:00 PM",ta:"1st – Group E",tb:"Next Best 3",stage:"Quarter Final"},
+  {code:"IQF4",cat:"Inter+Adv",group:"QF",day:"Fri",time:"04:10–04:40 PM",ta:"1st – Group E",tb:"Next Best 3",stage:"Quarter Final"},
   {code:"BSF1",cat:"Beginner",group:"SF",day:"Fri",time:"04:50–05:20 PM",ta:"BQF1 Winner",tb:"BQF3 Winner",stage:"Semi Final"},
   {code:"ISF1",cat:"Inter+Adv",group:"SF",day:"Fri",time:"05:30–06:00 PM",ta:"IQF1 Winner",tb:"IQF3 Winner",stage:"Semi Final"},
   {code:"BSF2",cat:"Beginner",group:"SF",day:"Fri",time:"06:10–06:40 PM",ta:"BQF2 Winner",tb:"BQF4 Winner",stage:"Semi Final"},
@@ -1241,15 +1238,15 @@ function renderBracket() {
 
   const html = `
   <div style="margin-bottom:.75rem;font-size:11px;color:var(--muted);background:rgba(212,138,0,.06);border:1px solid rgba(212,138,0,.2);border-radius:8px;padding:.5rem .75rem">
-    🏆 <strong>8 teams advance per category:</strong> 5 group winners (A–E) + 3 wildcards · ${progressNote}
+    🏆 <strong>8 teams advance per category:</strong> Top team from each of 5 groups (A–E) + next best 3 from remaining teams · ${progressNote}
   </div>
   <div class="bracket">
     <div class="round">
       <div class="round-title">QUARTER FINALS</div>
-      ${bm(grpA1, null, grpADone, allGroupsDone, qf1w, `${pfx}QF1`, grpADone?'Grp A Winner':'Grp A (pending)', allGroupsDone?'Wildcard 1':'Wildcards TBD')}
-      ${bm(grpB1, null, grpBDone, allGroupsDone, qf2w, `${pfx}QF2`, grpBDone?'Grp B Winner':'Grp B (pending)', allGroupsDone?'Wildcard 2':'Wildcards TBD')}
+      ${bm(grpA1, null, grpADone, allGroupsDone, qf1w, `${pfx}QF1`, grpADone?'Grp A Winner':'Grp A (pending)', allGroupsDone?'Next Best 1':'Next Best (TBD)')}
+      ${bm(grpB1, null, grpBDone, allGroupsDone, qf2w, `${pfx}QF2`, grpBDone?'Grp B Winner':'Grp B (pending)', allGroupsDone?'Next Best 2':'Next Best (TBD)')}
       ${bm(grpC1, grpD1, grpCDone, grpDDone, qf3w, `${pfx}QF3`, grpCDone?'Grp C Winner':'Grp C (pending)', grpDDone?'Grp D Winner':'Grp D (pending)')}
-      ${bm(grpE1, null, grpEDone, allGroupsDone, qf4w, `${pfx}QF4`, grpEDone?'Grp E Winner':'Grp E (pending)', allGroupsDone?'Wildcard 3':'Wildcards TBD')}
+      ${bm(grpE1, null, grpEDone, allGroupsDone, qf4w, `${pfx}QF4`, grpEDone?'Grp E Winner':'Grp E (pending)', allGroupsDone?'Next Best 3':'Next Best (TBD)')}
     </div>
     <div class="round" style="justify-content:space-around;padding-top:2.5rem">
       <div class="round-title">SEMI FINALS</div>
