@@ -619,7 +619,7 @@ nav{position:sticky;top:0;z-index:100;background:#1c1c1a;border-bottom:1px solid
     <div style="position:relative;z-index:1;padding:2.5rem 1.25rem 2rem;text-align:center">
       <div class="hero-pill" style="background:rgba(255,255,255,.9);border-color:rgba(255,255,255,.6);color:#1c1c1a">🏆 TOURNAMENT 2026</div>
       <h1 style="color:#1c1c1a;text-shadow:0 1px 16px rgba(255,255,255,.85)">DREAMPLAY<br>PICKLEBALL</h1>
-      <div class="hero-sub" style="color:#2a2a28;font-weight:600;text-shadow:0 1px 8px rgba(255,255,255,.9)">7th Floor Pickle Court · 21–25 April 2026</div>
+      <div class="hero-sub" style="color:#2a2a28;font-weight:600;text-shadow:0 1px 8px rgba(255,255,255,.9)">7th Floor Pickle Court · 20–24 April 2026</div>
       <div class="hero-stats" style="margin-bottom:1.25rem">
         <div><div class="hstat-v" style="color:#1c1c1a;text-shadow:0 1px 10px rgba(255,255,255,.8)">39</div><div class="hstat-l" style="color:#3a3a38;font-weight:700">Teams</div></div>
         <div><div class="hstat-v" style="color:#1c1c1a;text-shadow:0 1px 10px rgba(255,255,255,.8)">2</div><div class="hstat-l" style="color:#3a3a38;font-weight:700">Categories</div></div>
@@ -822,7 +822,7 @@ nav{position:sticky;top:0;z-index:100;background:#1c1c1a;border-bottom:1px solid
 // DATA
 // ════════════════════════════════════════
 const MATCHES = [
-  // ── MONDAY (Mon 21 Apr) ──
+  // ── MONDAY (Mon 20 Apr) ──
   // Beginner Group A
   {code:"GA1",cat:"Beginner",group:"A",day:"Wed",time:"08:40–09:10 PM",ta:"Pragati Ranjan & Anshuman Singh",tb:"Jay Gosalia & sohith",stage:"Group Stage"},
   {code:"GA2",cat:"Beginner",group:"A",day:"Mon",time:"01:10–01:40 PM",ta:"Rohan Pawar & Anuj Dhanger",tb:"Rishabh Surana & Nishant Parmar",stage:"Group Stage"},
@@ -841,7 +841,7 @@ const MATCHES = [
   // Beginner Group E match 1
   {code:"GE1",cat:"Beginner",group:"E",day:"Mon",time:"08:30–09:00 PM",ta:"Akshansh Thakur & Sanchit Gupta",tb:"Tarun Kumar & Shashank Dhurwe",stage:"Group Stage"},
 
-  // ── TUESDAY (Tue 22 Apr) ──
+  // ── TUESDAY (Tue 21 Apr) ──
   // Beginner Group A
   {code:"GA3",cat:"Beginner",group:"A",day:"Tue",time:"12:00–12:30 PM",ta:"Pragati Ranjan & Anshuman Singh",tb:"Rohan Pawar & Anuj Dhanger",stage:"Group Stage"},
   {code:"GA4",cat:"Beginner",group:"A",day:"Tue",time:"12:40–01:10 PM",ta:"Pragati Ranjan & Anshuman Singh",tb:"Rishabh Surana & Nishant Parmar",stage:"Group Stage"},
@@ -860,7 +860,7 @@ const MATCHES = [
   // Inter+Adv Group E match 1
   {code:"IE1",cat:"Inter+Adv",group:"E",day:"Tue",time:"08:00–08:30 PM",ta:"Pranjal Sonkar & Ashish Agarwal",tb:"Parth Kapoor & Bhrigu Raj Das",stage:"Group Stage"},
 
-  // ── WEDNESDAY (Wed 23 Apr) ──
+  // ── WEDNESDAY (Wed 22 Apr) ──
   // Inter+Adv Group A (Hitesh NOT Mon – Wed is fine ✓)
   {code:"IA3",cat:"Inter+Adv",group:"A",day:"Wed",time:"12:00–12:30 PM",ta:"Nihar Vira & Arif",tb:"Akash Sanan & Keerthi Ganesh",stage:"Group Stage"},
   {code:"IA5",cat:"Inter+Adv",group:"A",day:"Wed",time:"12:40–01:10 PM",ta:"Jinay Parekh & Gaurang Jadav",tb:"Akash Sanan & Keerthi Ganesh",stage:"Group Stage"},
@@ -881,7 +881,7 @@ const MATCHES = [
   // Beginner Group E match 4
   {code:"GE4",cat:"Beginner",group:"E",day:"Wed",time:"08:00–08:30 PM",ta:"Tarun Kumar & Shashank Dhurwe",tb:"Niraj Kumar & Aditya H K",stage:"Group Stage"},
 
-  // ── THURSDAY (Thu 24 Apr) ──
+  // ── THURSDAY (Thu 23 Apr) ──
   // Inter+Adv Group C
   {code:"IC3",cat:"Inter+Adv",group:"C",day:"Thu",time:"12:00–12:30 PM",ta:"Swapnesh Kumar & Sarthak Mittal",tb:"Manjeet Yadav & Sachin Nayak",stage:"Group Stage"},
   {code:"IC4",cat:"Inter+Adv",group:"C",day:"Thu",time:"12:40–01:10 PM",ta:"Sahil Parsekar & Yash Shah",tb:"Sayan Chakraborty & Madhur Mittal",stage:"Group Stage"},
@@ -1124,7 +1124,7 @@ function setCat(c, btn) {
 
 function renderDayBtns() {
   const days = ['all','Mon','Tue','Wed','Thu','Fri'];
-  const labels = {all:'All Days',Mon:'Mon 21',Tue:'Tue 22',Wed:'Wed 23',Thu:'Thu 24',Fri:'Fri 25 🏆'};
+  const labels = {all:'All Days',Mon:'Mon 20',Tue:'Tue 21',Wed:'Wed 22',Thu:'Thu 23',Fri:'Fri 24 🏆'};
   document.getElementById('day-filters').innerHTML = days.map(d =>
     `<button class="fchip${dayFilter===d?' on-day':''}" onclick="setDay('${d}',this)">${labels[d]}</button>`
   ).join('');
@@ -1213,7 +1213,7 @@ function renderFixtures() {
     return;
   }
   const dayOrder = ['Mon','Tue','Wed','Thu','Fri'];
-  const dayNames = {Mon:'Monday 21 Apr',Tue:'Tuesday 22 Apr',Wed:'Wednesday 23 Apr',Thu:'Thursday 24 Apr',Fri:'Friday 25 Apr 🏆'};
+  const dayNames = {Mon:'Monday 20 Apr',Tue:'Tuesday 21 Apr',Wed:'Wednesday 22 Apr',Thu:'Thursday 23 Apr',Fri:'Friday 24 Apr 🏆'};
   let html = '';
   dayOrder.forEach(day => {
     const dayMs = filtered.filter(m => m.day === day);
